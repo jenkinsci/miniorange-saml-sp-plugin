@@ -1,4 +1,0 @@
-<?jelly escape-by-default='true'?>
-<div>
-  This plugin allow you to Perform SSO using SAML protocol.
-</div>

@@ -1,3 +1,0 @@
-# informational; use java -jar sezpoz.jar to see authoritative contents
-org.miniorange.saml.MoSAMLAddIdp$DescriptorImpl
-org.miniorange.saml.MoSAMLCrumbExclusion
