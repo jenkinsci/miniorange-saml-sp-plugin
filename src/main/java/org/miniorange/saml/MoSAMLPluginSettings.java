@@ -3,14 +3,19 @@ package org.miniorange.saml;
 import jenkins.model.Jenkins;
 import org.apache.commons.io.IOUtils;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class MoSAMLPluginSettings {
 
     private String idpEntityId;
     private String ssoUrl;
+    private String metadataUrl;
+    private String metadataFilePath;
     private String publicx509Certificate;
     // Information related to Attribute Mapping
+
+    private String usernameCaseConversion;
     private String usernameAttribute;
     private String emailAttribute;
     private String nameIDFormat;
@@ -20,11 +25,15 @@ public class MoSAMLPluginSettings {
     private Boolean enableRegexPattern;
     private Boolean signedRequest;
     private Boolean userCreate;
+    private Boolean forceAuthn;
     private String  ssoBindingType;
     private String sloBindingType;
     private String fullnameAttribute;
+
+    private List<MoAttributeEntry> samlCustomAttributes;
     private Boolean  userAttributeUpdate;
     private String newUserGroup;
+    private String authnContextClass;
 
     private static final String PRIVATE_CERT_PATH = "/certificates/sp-key.key";
     private static final String PUBLIC_CERT_PATH = "/certificates/sp-certificate.crt";
@@ -48,29 +57,36 @@ public class MoSAMLPluginSettings {
             LOGGER.fine("An I/O error occurred while initializing the SAML Settings.");
         }
     }
-    public MoSAMLPluginSettings (String idpEntityId, String ssoUrl,  String publicx509Certificate,
+    public MoSAMLPluginSettings (String idpEntityId, String ssoUrl, String metadataUrl, String metadataFilePath,
+                                 String publicx509Certificate, String usernameCaseConversion,
                                  String usernameAttribute, String emailAttribute,
                                  String nameIDFormat, String sslUrl, String loginType,
                                  String regexPattern, Boolean enableRegexPattern, Boolean signedRequest,
-                                 Boolean userCreate ,String ssoBindingType,String sloBindingType,
-                                 String fullnameAttribute, Boolean userAttributeUpdate, String newUserGroup) {
+                                 Boolean userCreate , Boolean forceAuthn, String ssoBindingType,String sloBindingType,
+                                 String fullnameAttribute, List<MoAttributeEntry> samlCustomAttributes, Boolean userAttributeUpdate, String newUserGroup,String authnContextClass) {
         this.idpEntityId = idpEntityId;
         this.ssoUrl = ssoUrl;
+        this.metadataUrl= metadataUrl;
+        this.metadataFilePath = metadataFilePath;
         this.publicx509Certificate = publicx509Certificate;
-        this.usernameAttribute = usernameAttribute;
-        this.emailAttribute = emailAttribute;
-        this.nameIDFormat= nameIDFormat;
+        this.usernameCaseConversion = (usernameCaseConversion != null) ? usernameCaseConversion : "none";
+        this.usernameAttribute = (usernameAttribute != null && !usernameAttribute.trim().equals("")) ? usernameAttribute : "NameID";
+        this.emailAttribute = (emailAttribute != null && !emailAttribute.trim().equals("")) ? emailAttribute : "NameID";
+        this.nameIDFormat= (nameIDFormat != null) ? nameIDFormat : "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
         this.sslUrl= sslUrl;
         this.loginType = (loginType != null) ? loginType : "usernameLogin";
         this.regexPattern= regexPattern;
-        this.enableRegexPattern= enableRegexPattern;
-        this.signedRequest= signedRequest;
-        this.userCreate = userCreate;
-        this.ssoBindingType= ssoBindingType;
-        this.sloBindingType =sloBindingType;
+        this.enableRegexPattern= (enableRegexPattern != null) ? enableRegexPattern : false;;
+        this.signedRequest= (signedRequest != null) ? signedRequest : false;
+        this.userCreate = (userCreate != null) ? userCreate : false;
+        this.forceAuthn = (forceAuthn != null) ? forceAuthn : false;
+        this.ssoBindingType = (ssoBindingType != null) ? ssoBindingType : "HttpRedirect";
+        this.sloBindingType =  (sloBindingType != null) ? sloBindingType : "HttpRedirect";
         this.fullnameAttribute= fullnameAttribute;
-        this.userAttributeUpdate= userAttributeUpdate;
+        this.userAttributeUpdate= (userAttributeUpdate != null) ? userAttributeUpdate : false;
         this.newUserGroup= newUserGroup;
+        this.samlCustomAttributes = samlCustomAttributes;
+        this.authnContextClass= (authnContextClass != null) ? authnContextClass : "None";
     }
 
 
@@ -80,8 +96,15 @@ public class MoSAMLPluginSettings {
 
     public String getSsoUrl() { return ssoUrl; }
 
+    public String getMetadataUrl() {return metadataUrl; }
+    public String getMetadataFilePath() {return metadataFilePath; }
+
     public String getX509PublicCertificate() {
         return publicx509Certificate;
+    }
+
+    public String getUsernameCaseConversion() {
+        return usernameCaseConversion;
     }
 
     public String getUsernameAttribute() {
@@ -160,6 +183,8 @@ public class MoSAMLPluginSettings {
 
     public Boolean getUserCreate() { return userCreate; }
 
+    public Boolean getForceAuthn() { return forceAuthn; }
+
     public String getPublicSPCertificate(){ return MoSAMLUtils.serializePublicCertificate(PUBLIC_CERTIFICATE); }
 
     public String getSsoBindingType() { return ssoBindingType; }
@@ -177,5 +202,18 @@ public class MoSAMLPluginSettings {
         return newUserGroup;
     }
 
+    public List<MoAttributeEntry> getSamlCustomAttributes() {
+        LOGGER.fine("Updating Custom Attributes.");
+        if (samlCustomAttributes == null) {
+            return java.util.Collections.emptyList();
+        }
+        return samlCustomAttributes; }
 
+    public String getAuthnContextClass() {
+        return authnContextClass;
+    }
+
+    public void setAuthnContextClass(String authnContextClass) {
+        this.authnContextClass = authnContextClass;
+    }
 }

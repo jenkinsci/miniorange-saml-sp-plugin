@@ -115,7 +115,7 @@ public class MoSAMLUtils {
         return response;
     }
 
-  public static AuthnRequest buildAuthnRequest(String issuer, String acsUrl, String destination, String nameIdFormat) {
+  public static AuthnRequest buildAuthnRequest(String issuer, String acsUrl, String destination, String nameIdFormat, Boolean forceAuthn,String authnContextClass) {
       LOGGER.fine("Building Authentication Request");
       AuthnRequest authnRequest = new AuthnRequestBuilder().buildObject(SAMLConstants.SAML20P_NS,
               AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME, "samlp");
@@ -127,6 +127,12 @@ public class MoSAMLUtils {
       authnRequest.setIssuer(buildIssuer(issuer));
       authnRequest.setAssertionConsumerServiceURL(acsUrl);
       authnRequest.setDestination(destination);
+      if(forceAuthn){
+          authnRequest.setForceAuthn(forceAuthn);
+      }
+      if(org.apache.commons.lang3.StringUtils.isNotBlank(authnContextClass) && !authnContextClass.equals("None")){
+          authnRequest.setRequestedAuthnContext(buildRequestedAuthnContext(authnContextClass));
+      }
       NameIDPolicyBuilder nameIdPolicyBuilder = new NameIDPolicyBuilder();
       NameIDPolicy nameIdPolicy = nameIdPolicyBuilder.buildObject();
       nameIdPolicy.setFormat(nameIdFormat);
@@ -142,6 +148,20 @@ public class MoSAMLUtils {
         return issuer;
     }
 
+    public static RequestedAuthnContext buildRequestedAuthnContext(String authnContextClassRefValue){
+        /* AuthnContextClass */
+        AuthnContextClassRefBuilder authnContextClassRefBuilder = new AuthnContextClassRefBuilder();
+        AuthnContextClassRef authnContextClassRef = authnContextClassRefBuilder.buildObject("urn:oasis:names:tc:SAML:2.0:assertion", "AuthnContextClassRef", "saml");
+        authnContextClassRef.setAuthnContextClassRef(authnContextClassRefValue);
+
+        /* RequestedAuthnContext */
+        RequestedAuthnContextBuilder requestedAuthnContextBuilder = new RequestedAuthnContextBuilder();
+        RequestedAuthnContext requestedAuthnContext = requestedAuthnContextBuilder.buildObject();
+        requestedAuthnContext.setComparison(AuthnContextComparisonTypeEnumeration.EXACT);
+        requestedAuthnContext.getAuthnContextClassRefs().add(authnContextClassRef);
+
+        return requestedAuthnContext;
+    }
 
     public static Assertion decryptAssertion(EncryptedAssertion encryptedAssertion, String publicKey, String privateKey)
             throws CertificateException, InvalidKeySpecException, NoSuchAlgorithmException, DecryptionException {

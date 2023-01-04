@@ -1,115 +1,211 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:f="/lib/form" >
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:f="/lib/form">
 
     <f:section title="Miniorange Saml SP plugin configuration">
     </f:section>
-        <f:section title="SP Configuration">
-            <f:entry title="SP Entity ID:" field="sPEntityID">
-                <f:textbox default="[base- url]" disabled="true"/>
-            </f:entry>
+    <f:section title="SP Configuration">
+        <j:set var="jvar_baseUrl" value="${descriptor.getBaseUrl()}"/>
+        <f:entry title="SP Entity ID:" field="sPEntityID">
+            <f:textbox default="${jvar_baseUrl}" disabled="true"/>
+        </f:entry>
 
-            <f:entry title="Audience URI:" field="audienceURI">
-                <f:textbox default="[base- url]" disabled="true"/>
-            </f:entry>
+        <f:entry title="Audience URI:" field="audienceURI">
+            <f:textbox default="${jvar_baseUrl}" disabled="true"/>
+        </f:entry>
 
-            <f:entry title="ACS URL:" field="acsURL">
-                <f:textbox default="[base- url]/securityRealm/moSamlAuth" disabled="true"/>
-            </f:entry>
+        <f:entry title="ACS URL:" field="acsURL">
+            <f:textbox default="${jvar_baseUrl}/securityRealm/moSamlAuth" disabled="true"/>
+        </f:entry>
 
-            <f:entry title="SP Logout URL: " field="spLogoutURL">
-                <f:textbox default="[base- url]/securityRealm/logout" disabled="true"/>
-            </f:entry>
+        <f:entry title="SP Logout URL: " field="spLogoutURL">
+            <f:textbox default="${jvar_baseUrl}/securityRealm/logout" disabled="true"/>
+        </f:entry>
 
-            <f:block>
-                <a href="../securityRealm/mospmetadata">Service Provider Metadata</a> and  <a href="../securityRealm/downloadCertificate">Download SP Certificate</a>
-                required to setup your IDP.(Based on your last saved settings.)
-            </f:block>
-
-
-        </f:section>
-
-        <f:section title="IDP Configuration">
-            <f:entry title="IDP Entity ID / Issuer:" field="idpEntityId" >
-                <f:textbox placeholder="Enter Entity ID / Issuer" />
-            </f:entry>
-
-            <f:entry title="Single Sign On URL:" field="ssoUrl" >
-                <f:textbox placeholder="Enter Single Sign On URL" />
-            </f:entry>
-
-            <f:entry title="Single Logout  URL:" field="sslUrl"  >
-                <f:textbox placeholder="Available in premium version" disabled="true" />
-            </f:entry>
-
-            <f:entry name="nameIDFormat" title="Name ID Format:" field="nameIDFormat" >
-                <select name="nameIDFormat" style="width: 100%;">
-                    <f:option value="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" selected="${instance.nameIDFormat == 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified'}">urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</f:option>
-                    <f:option value="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" selected="${instance.nameIDFormat == 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'}">urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</f:option>
-                    <f:option value="urn:oasis:names:tc:SAML:1.1:nameid-format:persistent" selected="${instance.nameIDFormat == 'urn:oasis:names:tc:SAML:1.1:nameid-format:persistent'}">urn:oasis:names:tc:SAML:1.1:nameid-format:persistent</f:option>
-                    <f:option value="urn:oasis:names:tc:SAML:1.1:nameid-format:transient" selected="${instance.nameIDFormat == 'urn:oasis:names:tc:SAML:1.1:nameid-format:transient'}">urn:oasis:names:tc:SAML:1.1:nameid-format:transient</f:option>
-                </select>
-            </f:entry>
-
-            <f:entry title="IDP Signing Certificate:" field="publicx509Certificate" >
-                <f:textarea size="4" placeholder="Enter IDP Signing Certificate:" />
-            </f:entry>
-        </f:section>
-
-        <f:section title="User Profile Configuration">
-            <f:entry name="loginType" title="Login Jenkins account by:" field="loginType">
-                <select name="loginType">
-                    <f:option value="usernameLogin" selected="${instance.loginType == 'usernameLogin'}">User Name</f:option>
-                    <f:option value="emailLogin" selected="${instance.loginType == 'emailLogin'}">Email</f:option>
-                </select>
-            </f:entry>
-
-            <f:entry title="Username Attribute:" field="usernameAttribute" >
-                <f:textbox placeholder="Enter Username Attribute" />
-            </f:entry>
-
-            <f:entry title="Email Attribute:" field="emailAttribute" >
-                <f:textbox placeholder="Enter Email Attribute" />
-            </f:entry>
-
-            <f:entry title="Full Name Attribute" field="fullnameAttribute"  >
-                <f:textbox placeholder="Available in premium version" disabled="true"  />
-            </f:entry>
-
-            <f:entry title="${%Apply regex Pattern to the UserName: }" field="enableRegexPattern">
-                <f:checkbox/>
-            </f:entry>
-
-            <f:entry title="REGEX Pattern:" field="regexPattern" >
-                <f:textbox placeholder="Enter REGEX Pattern" />
-            </f:entry>
-        </f:section>
-
-        <f:section title="Advanced Configurations">
-
-            <f:entry title="${%Do you want to create a new users? }" field="userCreate">
-                <f:checkbox/>
-            </f:entry>
+        <f:block>
+            <a href="../securityRealm/mospmetadata">Service Provider Metadata</a>
+            and
+            <a href="../securityRealm/downloadCertificate">Download SP Certificate</a>
+            required to setup your IDP.(Based on your last saved settings.)
+        </f:block>
 
 
-            <f:entry title="Assign group to new Users" field="newUserGroup">
-                <f:textbox placeholder="Available in premium version" disabled="true" />
-            </f:entry>
-        </f:section>
+    </f:section>
 
-        <f:section name="support" title="miniOrange Support" >
-            <f:entry title="Email:" field="supportEmail" >
-                <f:textbox  placeholder="Enter Email here."/>
-            </f:entry>
-            <f:entry title="Name:" field="supportName" >
-                <f:textbox  placeholder="Enter Name here."/>
-            </f:entry>
-            <f:entry title="Query:" field="supportQuery" >
-                <f:textarea size="6" placeholder="Enter your query in detail." />
-            </f:entry>
-            <f:validateButton
-                    title="${%Submit Query}" progress="${%Submitting...}"
-                    method="sendSupportMail" with="supportQuery,supportEmail,supportName" />
-        </f:section>
+    <f:section title="IDP configuration">
+
+        <h4>I will enter metadata url</h4>
+
+        <f:entry title="Enter metadata url:" field="metadataUrl">
+            <f:textbox placeholder="Enter metadata url"/>
+        </f:entry>
+        <f:validateButton
+                title="${%Validate metadata Url}" progress="${%validating...}"
+                method="validateMetadataUrl" with="metadataUrl"
+        />
+
+        <h4>OR</h4>
+
+        <h4>I will enter metadata file path</h4>
+
+        <f:entry title="IDP Metadata:" field="metadataFilePath">
+            <f:textbox placeholder="Enter the path for Idp metadata file"/>
+        </f:entry>
+        <f:validateButton
+                title="${%Validate metadata File}" progress="${%validating...}"
+                method="validateMetadataFile" with="metadataFilePath"
+        />
+
+        <h4>OR</h4>
+
+        <h4>I will do manual configuration</h4>
+
+        <f:entry title="IDP Entity ID / Issuer:" field="idpEntityId">
+            <f:textbox placeholder="Enter Entity ID / Issuer"/>
+        </f:entry>
+
+        <f:entry title="Single Sign On URL:" field="ssoUrl">
+            <f:textbox placeholder="Enter Single Sign On URL"/>
+        </f:entry>
+
+        <f:entry title="Single Logout URL:" field="sslUrl">
+            <f:textbox placeholder="Available in premium version" disabled="true"/>
+        </f:entry>
+
+        <f:entry name="nameIDFormat" title="Name ID Format:" field="nameIDFormat">
+            <select name="nameIDFormat" style="width: 100%;">
+                <f:option value="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
+                          selected="${instance.nameIDFormat == 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified'}">
+                    urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
+                </f:option>
+                <f:option value="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+                          selected="${instance.nameIDFormat == 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'}">
+                    urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
+                </f:option>
+                <f:option value="urn:oasis:names:tc:SAML:1.1:nameid-format:persistent"
+                          selected="${instance.nameIDFormat == 'urn:oasis:names:tc:SAML:1.1:nameid-format:persistent'}">
+                    urn:oasis:names:tc:SAML:1.1:nameid-format:persistent
+                </f:option>
+                <f:option value="urn:oasis:names:tc:SAML:1.1:nameid-format:transient"
+                          selected="${instance.nameIDFormat == 'urn:oasis:names:tc:SAML:1.1:nameid-format:transient'}">
+                    urn:oasis:names:tc:SAML:1.1:nameid-format:transient
+                </f:option>
+            </select>
+        </f:entry>
+
+        <f:entry title="IDP Signing Certificate:" field="publicx509Certificate">
+            <f:textarea size="4" placeholder="Enter IDP Signing Certificate:"/>
+        </f:entry>
+
+        <f:validateButton
+                title="${%Test Configuration}" progress="${%validating...}"
+                method="performTestConfiguration" with="idpEntityId,ssoUrl,publicx509Certificate"/>
+    </f:section>
+
+    <f:section title="User Profile Configuration">
+        <f:entry name="loginType" title="Login Jenkins account by:" field="loginType" description="Available in premium version only" >
+            <select name="loginType" style="pointer-events: none">
+                <f:option value="usernameLogin" selected="${instance.loginType == 'usernameLogin'}">User Name</f:option>
+                <f:option value="emailLogin" selected="${instance.loginType == 'emailLogin'}">Email</f:option>
+            </select>
+        </f:entry>
+
+
+        <f:entry title="Username Case Conversion" field="usernameCaseConversion"
+                 help="/plugin/saml/help/usernameCaseConversion.html">
+            <select name="usernameCaseConversion">
+                <f:option value="none" selected="${instance.usernameCaseConversion == 'none'}">None</f:option>
+                <f:option value="lowercase" selected="${instance.usernameCaseConversion == 'lowercase'}">Lowercase
+                </f:option>
+                <f:option value="uppercase" selected="${instance.usernameCaseConversion == 'uppercase'}">Uppercase
+                </f:option>
+            </select>
+        </f:entry>
+
+        <f:entry title="Username Attribute:" field="usernameAttribute">
+            <f:textbox placeholder="Enter Username Attribute"/>
+        </f:entry>
+
+        <f:entry title="Email Attribute:" field="emailAttribute">
+            <f:textbox placeholder="Enter Email Attribute"/>
+        </f:entry>
+
+        <f:entry title="Full Name Attribute" field="fullnameAttribute">
+            <f:textbox placeholder="Available in premium version" disabled="true"/>
+        </f:entry>
+
+        <h4>OR</h4>
+
+        <f:entry title="${%Map first name and last name as separate attribute ?}" field="splitnameAttribute" >
+            <f:checkbox onclick="return false" checked="false"/>
+        </f:entry>
+
+        <f:entry title="${%Apply regex Pattern to the UserName: }" field="enableRegexPattern">
+            <f:checkbox/>
+        </f:entry>
+
+        <f:entry title="REGEX Pattern:" field="regexPattern">
+            <f:textbox placeholder="Enter REGEX Pattern"/>
+        </f:entry>
+    </f:section>
+
+    <f:section title="Advanced Configurations">
+
+        <f:entry field="ssoBindingType" title="SSO Binding Type">
+            <select name="ssoBindingType">
+                <f:option value="HttpRedirect"
+                          selected="${instance.ssoBindingType == 'HttpRedirect'}">HTTP-Redirect
+                </f:option>
+                <f:option value="HttpPost"
+                          selected="${instance.ssoBindingType == 'HttpPost'}">HTTP-POST
+                </f:option>
+            </select>
+        </f:entry>
+
+        <f:entry field="sloBindingType" title="SLO Binding Type" description="Available in premium version only">
+            <select name="sloBindingType" style="pointer-events: none">
+                <f:option value="HttpRedirect"
+                          selected="${instance.ssoBindingType == 'HttpRedirect'}">HTTP-Redirect
+                </f:option>
+                <f:option value="HttpPost"
+                          selected="${instance.ssoBindingType == 'HttpPost'}">HTTP-POST
+                </f:option>
+            </select>
+        </f:entry>
+
+        <f:entry title="${%Send Signed Request ? }" field="signedRequest">
+            <f:checkbox onclick="return false"/>
+        </f:entry>
+
+        <f:entry title="${%Create new user after SSO? }" field="userCreate">
+            <f:checkbox/>
+        </f:entry>
+
+        <f:entry title="Force Authentication" field="forceAuthn" help="/plugin/saml/help/forceAuthn.html">
+            <f:checkbox/>
+        </f:entry>
+
+        <f:entry title="Authentication Context Class" field="authnContextClass">
+            <f:textbox placeholder="Enter Authentication Context. Keep empty if not required."/>
+        </f:entry>
+
+
+        <f:entry title="${%Update Attributes of Existing Users ? }" field="userAttributeUpdate">
+            <f:checkbox onclick="return false"/>
+        </f:entry>
+
+        <f:entry title="Custom Attributes" help="/plugin/miniorange-saml-sp/help-samlCustomAttributes.html">
+            <f:repeatableHeteroProperty field="samlCustomAttributes" hasHeader="true"/>
+        </f:entry>
+
+        <f:entry title="Assign group to new Users" field="newUserGroup">
+            <f:textbox placeholder="Available in premium version" disabled="true"/>
+        </f:entry>
+
+        <f:entry title="${%Disable Default Login ? }" field="disableDefaultLogin">
+            <f:checkbox onclick="return false"/>
+        </f:entry>
+    </f:section>
+
 
 </j:jelly>
 

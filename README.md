@@ -1,6 +1,8 @@
 # SAML Single Sign On (SSO) for Jenkins
 ![image_1](docs/images/jenkins-sso.png)
 
+ ⭐  **Click [here](https://miniorange.atlassian.net/wiki/spaces/JSDoc/pages/2551251014/Jenkins+SAML+SSO+Premium+Version+Payment+Steps) to try out the premium plugin for free** ⭐
+
 **SAML Single Sign On (SSO) for Jenkins** plugin allows SSO with ADFS, Azure AD, Azure AD B2C, Keycloak, Okta, Shibboleth, Salesforce, GSuite / Google Apps, AWS, Office 365, SimpleSAMLphp, OpenAM, Centrify, Ping, RSA, IBM, Oracle, OneLogin, Bitium, WSO2, Auth0, AuthAnvil and all SAML 2.0 capable Identity Providers to securely authenticate the users into Jenkins.
 
 **Features of Jenkins Saml SP Plugin**
@@ -22,7 +24,7 @@
 
 Facing issue with SSO? Refer below steps to generate error Logs and send it to info@xecurify.com. We will help you resolve your issue in no time.
 
-[Troubleshooting](/docs/images/troubleshooting.md)
+### **[Frequently Asked Questions](https://faq.miniorange.com/kb/jenkins/)**
 
 Looking for **Two Factor Authentication(2FA)/OAuth Single Sign On (SSO)** for Jenkins ? Contact us at info@xecurify.com for more details.
 

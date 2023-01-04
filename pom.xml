@@ -8,7 +8,7 @@
     </parent>
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>miniorange-saml-sp</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.0.20-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Jenkins SAML Single Sign On(SSO)</name>
 
@@ -141,6 +141,12 @@
             <artifactId>jaxb</artifactId>
             <version>2.3.6-1</version>
         </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.12.2</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
     <developers>
@@ -161,7 +167,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
+                <version>2.3.2</version>
                 <configuration>
                     <localCheckout>true</localCheckout>
                     <pushChanges>false</pushChanges>
