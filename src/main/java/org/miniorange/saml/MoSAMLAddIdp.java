@@ -822,14 +822,14 @@ public class MoSAMLAddIdp extends SecurityRealm {
 
     }
 
-    private ArrayList<String> handleEmailLogin(StaplerRequest request, StaplerResponse response, String email, MoSAMLPluginSettings settings, MoSAMLResponse moSAMLResponse) {
+    private ArrayList<String>  v(StaplerRequest request, StaplerResponse response, String email, MoSAMLPluginSettings settings, MoSAMLResponse moSAMLResponse) {
         ArrayList<String> usernameList= new ArrayList<String>();
         try {
             Collection<User> users = User.getAll();
 
             for (User user : users) {
                 String emailAddress = user.getProperty(Mailer.UserProperty.class).getAddress();
-                if (emailAddress.equals(email)) {
+                if (emailAddress != null && emailAddress.equals(email)) {
                     usernameList.add(user.getId());
                 }
             }
