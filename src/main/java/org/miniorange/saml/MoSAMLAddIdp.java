@@ -835,7 +835,7 @@ public class MoSAMLAddIdp extends SecurityRealm {
             }
 
         } catch (Exception e) {
-            LOGGER.fine("Error Occurred while searching for user");
+            LOGGER.fine("Error Occurred while searching for user" + e);
             return usernameList;
         }
         return usernameList;
