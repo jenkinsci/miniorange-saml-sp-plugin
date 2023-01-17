@@ -822,7 +822,7 @@ public class MoSAMLAddIdp extends SecurityRealm {
 
     }
 
-    private ArrayList<String>  v(StaplerRequest request, StaplerResponse response, String email, MoSAMLPluginSettings settings, MoSAMLResponse moSAMLResponse) {
+    private ArrayList<String> handleEmailLogin(StaplerRequest request, StaplerResponse response, String email, MoSAMLPluginSettings settings, MoSAMLResponse moSAMLResponse) {
         ArrayList<String> usernameList= new ArrayList<String>();
         try {
             Collection<User> users = User.getAll();
