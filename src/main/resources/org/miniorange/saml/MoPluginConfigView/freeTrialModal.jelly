@@ -73,10 +73,8 @@
                     <li>Binding Type Choice for SAML Requests</li>
                     <li>Support for Customizations</li>
                     <li>
-                        <p>
-                            <b>24*7 Support</b>
-                        </p>
-                        <p>Go to Meeting Support Plans On Demand</p>
+                        <span><b>24*7 Support</b></span>
+                        <p><span>Go to Meeting Support Plans On Demand</span></p>
                         <p>
                             <a href="https://miniorange.atlassian.net/servicedesk/customer/portal/2"
                                target="_blank" class="contact-us-link">Contact Us
@@ -95,8 +93,8 @@
     </div>
 </div>
 
-<div class="buy-now-link">
-<span class="buy-now-link-heading">Unlock your premium trial!</span>
+<div class="mo-modal">
+<span class="mo-modal-heading">Unlock your premium trial!</span>
 <button class="jenkins-button jenkins-button--primary " onclick="handleModal()">Click here</button>
 </div>
 

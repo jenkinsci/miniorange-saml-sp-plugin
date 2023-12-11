@@ -1,0 +1,31 @@
+.mo-contact-us-container {
+    position: fixed;
+    padding: 10px;
+    width: 284px;
+    height: 97px;
+    overflow: hidden;
+    display: block;
+    border-radius: 10px;
+    margin-left: 10px;
+    bottom: 30px;
+}
+.mo-contact-method{
+    display: flex;
+    gap: 7px;
+}
+
+.mo-contact-us-container h4{
+    margin: 0;
+}
+
+.mo-contact-icon{
+    color: grey;
+    font-size: 16px;
+}
+
+.mo-contact-details{
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}

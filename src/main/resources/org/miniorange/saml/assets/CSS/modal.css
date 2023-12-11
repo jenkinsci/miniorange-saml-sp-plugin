@@ -1,3 +1,22 @@
+.mo-modal {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: aliceblue;
+    color: #14141f;
+}
+
+[data-theme=dark] .mo-modal {
+    background-color: hsl(240, 6%, 20%);
+    color: #fefefe;
+}
+
+.mo-modal-heading {
+    font-size: 25px;
+    font-weight: 700;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -12,11 +31,17 @@
 
 .modal-content {
     background-color: #fefefe;
+    color: #14141f;
     padding: 20px;
     border: 1px solid #888;
     width: 1050px;
     position: relative;
     border-radius: 7px;
+}
+
+[data-theme=dark] .modal-content {
+    background-color: #090909;
+    color: #eee;
 }
 
 .trial-modal-top-margin{
@@ -38,22 +63,27 @@
 }
 
 #close-btn {
-    color: #000;
+    color: #14141f;
     float: right;
     font-size: 21px;
     font-weight: bold;
     position: absolute;
     top: -16px;
     right: -14px;
-    background-color: #fff;
-    border: 2px solid #000;
+    background-color: #fefefe;
+    border: 2px solid #14141f;
     padding: 0px 9px;
     border-radius: 50%;
     transition: .3s;
 }
 
+[data-theme=dark] #close-btn{
+    color: #fefefe;
+    border: 2px solid #fefefe;
+    background-color: rgb(1, 1, 1);
+}
+
 #close-btn:hover, .close-btn:focus {
-    color: #333;
     cursor: pointer;
 }
 
@@ -72,6 +102,10 @@
 
 .card:hover {
     box-shadow: 0 8px 12px 0 rgb(0 0 0 / 20%);
+}
+
+[data-theme=dark] .card:hover {
+    box-shadow: 0 8px 12px 0 rgb(255 253 253 / 25%);
 }
 
 .product {
@@ -96,14 +130,22 @@
     background-color: rgba(23, 61, 80, .06);
 }
 
+[data-theme=dark] .difference-list li:nth-of-type(2n+1) {
+    background-color: rgba(255, 255, 255, .06);
+}
+
 .difference-list li {
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #fefefe;
     text-align: center;
     margin: 0;
     list-style: none;
     font-size: .9em;
     padding: 0.8em;
     font-weight: 500;
+}
+
+[data-theme=dark] .difference-list li {
+    border-bottom: none;
 }
 
 .difference-list li p {
@@ -119,15 +161,6 @@ a.contact-us-link:hover {
     color: #0587d4;
 }
 
-.buy-now-link {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-    background-color: aliceblue;
-    padding: 10px;
-}
-
-
 a.buy-now-link {
     display: block;
     text-decoration: none;
@@ -137,7 +170,7 @@ a.buy-now-link {
     margin: 0 16px 10px 16px;
     padding: 0.8em 0;
     background-color: #024cb6;
-    color: #fff;
+    color: #fefefe;
     transition: 0.5s;
 }
 
@@ -146,7 +179,9 @@ a.buy-now-link:hover {
     background-color: rgba(2, 76, 182, .1);
 }
 
-.buy-now-link-heading {
-    font-size: 25px;
-    font-weight: 700;
+[data-theme=dark] a.buy-now-link:hover {
+    background-color: hsl(240, 6%, 20%);
+    color: #fefefe;
+    border: 1.6px solid #fefefe;
+
 }

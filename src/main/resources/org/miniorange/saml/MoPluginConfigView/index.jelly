@@ -10,10 +10,35 @@
                 <l:task contextMenu="false" href="#" icon="symbol-folder" title="${%Import SAML Configuration}" onclick="uploadConfig()"/>
                 <l:task contextMenu="false" href="./download" icon="symbol-download" title="${%Download SAML Configuration}"/>
             </l:tasks>
+
+            <div class="mo-contact-us-container">
+                <h4 >Contact us:</h4>
+                <div class="content">
+                    <div class="mo-contact-method">
+                        <div class="mo-contact-icon">✉️</div>
+                        <div class="mo-contact-details">
+                            <a href="mailto:support-atlassian@miniorange.atlassian.net">support-atlassian@miniorange.atlassian.net</a>
+                        </div>
+                    </div>
+                    <div class="mo-contact-method">
+                        <div class="mo-contact-icon">📹</div>
+                        <div class="mo-contact-details">
+                            <a href="https://calendly.com/miniorange-support/jenkins-saml-support-request-meeting" target="_blank">Free setup assistance</a>
+                        </div>
+                    </div>
+                    <div class="mo-contact-method">
+                        <div class="mo-contact-icon">📞</div>
+                        <div class="mo-contact-details">
+                            <a href="tel:+19786589387">+1 978 658 9387</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </l:side-panel>
         <l:main-panel>
 
             <st:adjunct includes="org.miniorange.saml.assets.CSS.modal"/>
+            <st:adjunct includes="org.miniorange.saml.assets.CSS.mo-contact-us"/>
             <st:adjunct includes="org.miniorange.saml.MoPluginConfigView.freeTrialModal"/>
             <st:adjunct includes="org.miniorange.saml.MoPluginConfigView.uploadPluginConfigModal"/>
 
