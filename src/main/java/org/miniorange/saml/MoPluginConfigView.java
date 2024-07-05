@@ -9,10 +9,8 @@ import hudson.security.SecurityRealm;
 import hudson.util.FormApply;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
+
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -123,13 +121,10 @@ public class MoPluginConfigView extends ManagementLink {
 
     @RequirePOST
     @SuppressWarnings("unused")
-    public void doUploadSamlConfigJson(StaplerRequest req, StaplerResponse rsp) throws IOException, FileUploadException, ServletException {
+    public void doUploadSamlConfigJson(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
         Jenkins.get().checkPermission(Jenkins.ADMINISTER);
         try {
-            File tmpDir = Files.createTempDirectory("uploadDir").toFile();
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD, tmpDir));
-            List<FileItem> items = upload.parseRequest(req);
-            FileItem fileItem = items.get(0);
+            FileItem fileItem = req.getFileItem("moSamlJsonConfiguration");
             String fileContent = fileItem.getString();
             JSONObject json = JSONObject.fromObject(fileContent);
             MoSAMLAddIdp.DESCRIPTOR.doRealmSubmit(req, rsp, json);

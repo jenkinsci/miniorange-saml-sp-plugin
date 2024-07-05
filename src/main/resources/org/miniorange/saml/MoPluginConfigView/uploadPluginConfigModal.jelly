@@ -9,7 +9,7 @@
                     Upload the SAML configuration Json file.
                 </div>
                 <f:entry title="${%File}" field="name">
-                    <input type="file" name="my.key" jsonAware="yes" accept="application/json"/>
+                    <f:file accept="application/json" name="moSamlJsonConfiguration"/>
                 </f:entry>
                 <f:submit value="${%Upload}"/>
             </f:form>
