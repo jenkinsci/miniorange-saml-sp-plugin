@@ -74,8 +74,8 @@ public class MoSAMLCrowdGroupManagement {
         HashMap<String, String> headers = new HashMap<String, String>();
         String auth = applicationName + ":" + password;
         byte[] encodedAuth = Base64.encodeBase64(
-                auth.getBytes(StandardCharsets.ISO_8859_1));
-        String authHeader = "Basic " + new String(encodedAuth);
+                auth.getBytes(StandardCharsets.UTF_8));
+        String authHeader = "Basic " + new String(encodedAuth,StandardCharsets.UTF_8);
         headers.put("Authorization",authHeader);
         headers.put("Accept","application/json");
         LOGGER.fine("Headers"+headers);

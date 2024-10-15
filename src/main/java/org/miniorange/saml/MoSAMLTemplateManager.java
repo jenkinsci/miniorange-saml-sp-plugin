@@ -63,8 +63,10 @@ public class MoSAMLTemplateManager {
                 htmlStart = htmlStart.append("</td></tr>");
             }
             //Crowd groups in test configuration
-            if (!(settings.getCrowdURL().isEmpty() && settings.getCrowdApplicationName().isEmpty() && settings.getCrowdApplicationPassword().getPlainText().isEmpty()))
-                crowdGroupsFetch(settings,htmlStart,username);
+            if (!(settings.getCrowdURL().isEmpty() && settings.getCrowdApplicationName().isEmpty() && settings.getCrowdApplicationPassword().getPlainText().isEmpty()))    {
+                          htmlStart = crowdGroupsFetch(settings,htmlStart,username);
+            }
+
 
             htmlStart = htmlStart.append("</table></div>");
             htmlStart = htmlStart
@@ -106,7 +108,7 @@ public class MoSAMLTemplateManager {
         return url.matches(regex);
     }
 
-    private void crowdGroupsFetch(MoSAMLPluginSettings settings, StringBuffer htmlStart, String username) {
+    private StringBuffer crowdGroupsFetch(MoSAMLPluginSettings settings, StringBuffer htmlStart, String username) {
         LOGGER.fine("in crowdGroupFetch for test configuration");
         htmlStart.append("<tr><td style=\"font-weight:bold;border:2px solid #949090;padding:2%;\">Groups from Crowd</td>");
         htmlStart.append("<td style=\"padding:2%;border:2px solid #949090;word-wrap:break-word;\">");
@@ -132,6 +134,7 @@ public class MoSAMLTemplateManager {
             htmlStart = htmlStart.append("No groups could be fetched from Crowd");
         }
         htmlStart = htmlStart.append("</td></tr>");
+        return htmlStart;
     }
 }
 
