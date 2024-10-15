@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:st="jelly:stapler" xmlns:l="/lib/layout">
+
+        <l:layout title="Group Configuration">
+
+                <l:side-panel>
+                        <l:tasks>
+                                <l:task title="back" href="../" icon="symbol-arrow-up"/>
+                        </l:tasks>
+                </l:side-panel>
+
+                <l:main-panel>
+                        <st:adjunct includes="org.miniorange.saml.assets.CSS.modal"/>
+                        <st:adjunct includes="org.miniorange.saml.MoPluginConfigView.freeTrialModal"/>
+                        <st:adjunct includes="org.miniorange.saml.MoPluginConfigView.uploadPluginConfigModal"/>
+
+                        <j:set var="securityRealm" value="${it.realm}"/>
+                        <j:set var="jvar_baseUrl" value="${securityRealm.descriptor.getBaseUrl()}"/>
+
+                        <f:form method="post" action="saveConfiguration" name="replace" descriptor="${securityRealm.descriptor}">
+                                <f:section title="Sync groups from IDP">
+
+                                        <f:entry title="Group Attribute: " field="groupAttribute">
+                                                <f:textbox placeholder="Available in premium version" disabled="true"/>
+                                        </f:entry>
+
+                                        <f:entry title="Assign group to Default Users" field="newUserGroup">
+                                                <f:textbox placeholder="Available in premium version" disabled="true"/>
+                                        </f:entry>
+
+                                        <f:entry title="Assign Default Group To:" field="defaultGroupToAssign"
+                                                description="Available in premium version">
+
+                                                <select name="defaultGroupToAssign" style="pointer-events: none">
+                                                        <f:option value="newUsers" selected="${securityRealm.getDefaultGroupToAssign() == 'newUsers'}">
+                                                                New Users
+                                                        </f:option>
+                                                </select>
+                                        </f:entry>
+
+                                        <f:entry title="Group Mapping"
+                                                 field="groupMapping"
+                                                 description="Available in premium version">
+                                                <f:hetero-list  name="groupMapping" hasHeader="true"
+                                                               items="${securityRealm.groupMapping}"
+                                                               menuAlign="tl-bl"
+                                                               addCaption="${%Add Groups}"
+                                                               descriptors="${securityRealm.descriptor.getPropertyType(instance,'groupMapping').getApplicableItemDescriptors()}"
+                                                />
+                                        </f:entry>
+
+                                </f:section>
+
+                                <f:section title="Sync groups from Crowd">
+
+                                        <f:entry title="Crowd URL:" field="crowdURL" >
+                                                <f:textbox placeholder="Enter Crowd Base URL. e.g. http://localhost:8095/crowd " default="${securityRealm.getCrowdURL()}" />
+                                        </f:entry>
+
+                                        <f:entry title="Crowd Application Name: " field="crowdApplicationName" >
+                                                <f:textbox  placeholder="Enter Crowd Application Name. e.g .Jenkins" default="${securityRealm.getCrowdApplicationName()}" />
+                                        </f:entry>
+
+                                        <f:entry title="Crowd Application Password: " field="crowdApplicationPassword"  >
+                                                <f:password placeholder="Enter Crowd Application Password." value="${securityRealm.getCrowdApplicationPassword()}"  />
+                                        </f:entry>
+
+                                        <f:entry title="${%Do you want to update Attributes of Users from Crowd? }" field="updateUserFromCrowd" >
+                                                <f:checkbox onclick="return false" checked="false"/>
+                                        </f:entry>
+
+                                        <f:block>
+                                                <table>
+                                                        <f:optionalBlock  inline="true" field="updateGroupsFromCrowd" title="Do you want to update Groups of Users from Crowd?" checked="true" disabled="true"  >
+                                                                <f:entry title="${%Fetch nested groups from Crowd? }" field="updateNestedGroupsFromCrowd" >
+                                                                        <f:checkbox onclick="return false" checked="false"/>
+                                                                </f:entry>
+                                                        </f:optionalBlock>
+                                                </table>
+                                        </f:block>
+
+                                </f:section>
+                                <l:isAdmin>
+                                        <f:bottomButtonBar>
+                                                <f:submit value="${%Save}"/>
+                                                <f:apply/>
+                                        </f:bottomButtonBar>
+                                </l:isAdmin>
+                        </f:form>
+                        <st:adjunct includes="org.miniorange.saml.assets.JS.modal"/>
+                </l:main-panel>
+
+        </l:layout>
+
+</j:jelly>
+

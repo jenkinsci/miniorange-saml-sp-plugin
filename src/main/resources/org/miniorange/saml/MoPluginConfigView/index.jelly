@@ -6,7 +6,8 @@
         <l:side-panel>
             <l:tasks>
                 <l:task title="back" href="../" icon="symbol-arrow-up"/>
-                <l:task contextMenu="false" href="../../asynchPeople/" icon="symbol-people" title="${%People}"/>
+                <l:task title="Setup Guide" href="https://www.miniorange.com/atlassian/jenkins-saml-sso-documentation" icon="symbol-document-text" target="_blank"/>
+                <l:task title="Groups Configuration" href="./groupsConfiguration" icon="symbol-people"/>
                 <l:task contextMenu="false" href="#" icon="symbol-folder" title="${%Import SAML Configuration}" onclick="uploadConfig()"/>
                 <l:task contextMenu="false" href="./download" icon="symbol-download" title="${%Download SAML Configuration}"/>
             </l:tasks>
@@ -265,13 +266,22 @@
                         />
                     </f:entry>
 
-                    <f:entry title="Assign group to new Users" field="newUserGroup">
-                        <f:textbox placeholder="Available in premium version" disabled="true"/>
-                    </f:entry>
-
                     <f:entry title="${%Disable Default Login ? }" field="disableDefaultLogin">
                         <f:checkbox onclick="return false"/>
                     </f:entry>
+
+                    <f:block >
+                        <f:entry title="Enable Custom Login Template" field="enableCustomLoginTemplate">
+                            <f:checkbox checked="true"  readonly="true" />
+                        </f:entry>
+
+                        <f:entry title="Custom Login Template" field="customLoginTemplate">
+                            <f:textarea readonly="true"
+                                        value="${securityRealm.getCustomLoginTemplate()}"
+                                        style="background-color: #f0f0f0; color: #999;"
+                            />
+                        </f:entry>
+                    </f:block>
                 </f:section>
 
                 <l:isAdmin>

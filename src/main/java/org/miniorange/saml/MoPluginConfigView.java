@@ -88,6 +88,10 @@ public class MoPluginConfigView extends ManagementLink {
         return "Secure Single Sign-On (SSO) solution that allows user to login to their apps using   IDP credentials by SAML Authentication.";
     }
 
+    public MoGroupConfiguration getGroupsConfiguration(){
+        return new MoGroupConfiguration();
+    }
+
     @SuppressWarnings("unused")
     public void doDownload(StaplerRequest req, StaplerResponse rsp) throws IOException {
 

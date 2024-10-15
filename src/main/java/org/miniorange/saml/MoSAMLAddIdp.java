@@ -1,5 +1,6 @@
 package org.miniorange.saml;
 
+import hudson.util.Secret;
 import net.sf.json.JSONArray;
 import org.apache.commons.io.FileUtils;
 import org.kohsuke.accmod.Restricted;
@@ -103,6 +104,11 @@ public class MoSAMLAddIdp extends SecurityRealm {
     private String authnContextClass;
     private static Set<String> nonceSet = new HashSet<>();
 
+    //crowd groups fetch
+    private String crowdURL;
+    private String crowdApplicationName;
+    private Secret crowdApplicationPassword;
+
 
     @DataBoundConstructor
     public MoSAMLAddIdp(String idpEntityId,
@@ -127,8 +133,11 @@ public class MoSAMLAddIdp extends SecurityRealm {
                         String sloBindingType,
                         List<MoAttributeEntry> samlCustomAttributes,
                         Boolean userAttributeUpdate,
-                        String newUserGroup,
-                        String authnContextClass
+                        String authnContextClass,
+                        String crowdURL,
+                        String crowdApplicationName,
+                        Secret crowdApplicationPassword
+
     ) throws Exception {
         super();
         this.metadataUrl = metadataUrl;
@@ -176,8 +185,10 @@ public class MoSAMLAddIdp extends SecurityRealm {
         this.samlCustomAttributes = samlCustomAttributes;
         this.userAttributeUpdate = (userAttributeUpdate != null) ? userAttributeUpdate : false;
         this.fullnameAttribute = fullnameAttribute;
-        this.newUserGroup= newUserGroup;
         this.authnContextClass=(authnContextClass != null) ? authnContextClass : "None";
+        this.crowdURL=crowdURL;
+        this.crowdApplicationName=crowdApplicationName;
+        this.crowdApplicationPassword=crowdApplicationPassword;
     }
 
     @Override
@@ -953,6 +964,10 @@ public class MoSAMLAddIdp extends SecurityRealm {
             return emailAttribute;
         }
     }
+
+    public String getCustomLoginTemplate() throws IOException {
+        return IOUtils.toString(MoSAMLAddIdp.class.getResourceAsStream(LOGIN_TEMPLATE_PATH), "UTF-8");
+    }
     /**
      * check if a request contains a session, if so, it invalidate the session and create new one to avoid session
      * fixation.
@@ -1015,7 +1030,7 @@ public class MoSAMLAddIdp extends SecurityRealm {
 
     private MoSAMLPluginSettings getMoSAMLPluginSettings() {
         MoSAMLPluginSettings settings = new MoSAMLPluginSettings(idpEntityId, ssoUrl, publicx509Certificate, usernameCaseConversion, usernameAttribute, emailAttribute, nameIDFormat,
-                loginType, regexPattern, enableRegexPattern, signedRequest, userCreate, forceAuthn, ssoBindingType,samlCustomAttributes,authnContextClass);
+                loginType, regexPattern, enableRegexPattern, signedRequest, userCreate, forceAuthn, ssoBindingType,samlCustomAttributes,authnContextClass,crowdURL,crowdApplicationName,crowdApplicationPassword);
         return settings;
     }
 
@@ -1053,8 +1068,35 @@ public class MoSAMLAddIdp extends SecurityRealm {
                 ", \"newUserGroup\": \"" + newUserGroup + '\"' +
                 ", \"authnContextClass\": \"" + authnContextClass + '\"' +
                 ", \"disableDefaultLogin\": \"" + "false" + '\"' +
+                ", \"crowdURL\":\"" + crowdURL + '\"' +
+                ", \"crowdApplicationName\":\"" + crowdApplicationName + '\"' +
+                ", \"crowdApplicationPassword\":\"" + crowdApplicationPassword + '\"' +
                 '}';
     }
+
+    public void setCrowdURL(String crowdURL) {
+        this.crowdURL = crowdURL;
+    }
+
+    public String getCrowdURL() {
+        return crowdURL;
+    }
+
+    public void setCrowdApplicationName(String crowdApplicationName) {
+        this.crowdApplicationName = crowdApplicationName;
+    }
+
+    public String  getCrowdApplicationName() {
+       return crowdApplicationName;
+    }
+
+    public void setCrowdApplicationPassword(Secret crowdApplicationPassword) {
+        this.crowdApplicationPassword = crowdApplicationPassword;
+    }
+   public Secret getCrowdApplicationPassword() {
+        return crowdApplicationPassword;
+    }
+
 
     @Extension
     public static final class DescriptorImpl extends Descriptor<SecurityRealm> {
@@ -1095,7 +1137,6 @@ public class MoSAMLAddIdp extends SecurityRealm {
                     formData.has("ssoBindingType") &&
                     formData.has("sloBindingType") &&
                     formData.has("userAttributeUpdate") &&
-                    formData.has("newUserGroup") &&
                     formData.has("authnContextClass");
         }
 
@@ -1133,7 +1174,7 @@ public class MoSAMLAddIdp extends SecurityRealm {
                     LOGGER.fine("Error is  " + e.getMessage());
                 }
 
-
+                MoSAMLAddIdp oldMoSAMLAddIdp = (MoSAMLAddIdp) oldRealm;
                 try {
                     Realm = new MoSAMLAddIdp(
                             StringUtils.defaultIfBlank(formData.get("idpEntityId").toString(), ""),
@@ -1158,8 +1199,10 @@ public class MoSAMLAddIdp extends SecurityRealm {
                             StringUtils.defaultIfBlank(formData.get("sloBindingType").toString(), ""),
                             attributeList,
                             Boolean.parseBoolean(formData.get("userAttributeUpdate").toString()),
-                            StringUtils.defaultIfBlank(formData.get("newUserGroup").toString(), ""),
-                            StringUtils.defaultIfBlank(formData.get("authnContextClass").toString(), "")
+                            StringUtils.defaultIfBlank(formData.get("authnContextClass").toString(), ""),
+                            formData.has("crowdURL")?formData.getString("crowdURL"):StringUtils.defaultIfBlank(oldMoSAMLAddIdp.getCrowdURL(), ""),
+                            formData.has("crowdApplicationName")? formData.getString("crowdApplicationName"):StringUtils.defaultIfBlank(oldMoSAMLAddIdp.getCrowdApplicationName(), ""),
+                            formData.has("crowdApplicationPassword")?Secret.fromString(formData.getString("crowdApplicationPassword")):Secret.fromString(StringUtils.defaultIfBlank(oldMoSAMLAddIdp.getCrowdApplicationPassword().toString(), ""))
                     );
                 } catch (Exception e) {
                     LOGGER.fine(" Error in loading security realm : " + e.getMessage());
@@ -1173,7 +1216,7 @@ public class MoSAMLAddIdp extends SecurityRealm {
                 LOGGER.fine("Creating empty realm");
                 try {
                     Realm = new MoSAMLAddIdp("","","","","","","","","","","","","",false,
-                            false,false,true, false,"","",null,false,"",""
+                            false,false,true, false,"","",null,false,"","","",Secret.fromString("")
                     );
                 } catch (Exception e) {
                     LOGGER.fine("Unable to create Security realm object , error is " + e.getMessage());
@@ -1296,6 +1339,12 @@ public class MoSAMLAddIdp extends SecurityRealm {
         }
 
         @POST
+        public FormValidation doCheckSslUrl(@QueryParameter String sslUrl) {
+            checkAdminPermission();
+            return FormValidation.warning("Available in premium version");
+        }
+
+        @POST
         @SuppressWarnings("unused")
         public FormValidation doCheckUserAttributeUpdate(@QueryParameter Boolean userAttributeUpdate) {
             checkAdminPermission();
@@ -1321,13 +1370,46 @@ public class MoSAMLAddIdp extends SecurityRealm {
             return FormValidation.warning("Available in premium version");
         }
         @POST
-        @SuppressWarnings("unused")
         public FormValidation doCheckDisableDefaultLogin(@QueryParameter Boolean disableDefaultLogin) {
             checkAdminPermission();
             if (! disableDefaultLogin) {
                 return FormValidation.warning("Available in premium version");
             }
             return FormValidation.ok();
+        }
+
+        @POST
+        public FormValidation doCheckGroupAttribute(@QueryParameter String groupAttribute) {
+            checkAdminPermission();
+            return FormValidation.warning("Available in premium version");
+        }
+        @POST
+        public FormValidation doCheckNewUserGroup(@QueryParameter String newUserGroup) {
+            checkAdminPermission();
+            return FormValidation.warning("Available in premium version");
+        }
+
+        @POST
+        public FormValidation doCheckUpdateUserFromCrowd(@QueryParameter Boolean updateUserFromCrowd) {
+            checkAdminPermission();
+            return FormValidation.warning("Available in premium version");
+        }
+
+        @POST
+        public FormValidation doCheckUpdateNestedGroupsFromCrowd(@QueryParameter Boolean updateNestedGroupsFromCrowd) {
+            checkAdminPermission();
+            return FormValidation.warning("Available in premium version");
+        }
+        @POST
+        public FormValidation doCheckFullnameAttribute(@QueryParameter String updateNestedGroupsFromCrowd) {
+            checkAdminPermission();
+            return FormValidation.warning("Available in premium version");
+        }
+
+        @POST
+        public FormValidation doCheckEnableCustomLoginTemplate(@QueryParameter Boolean enableCustomLoginTemplate) {
+            checkAdminPermission();
+            return FormValidation.warning("Available in premium version");
         }
 
         @POST

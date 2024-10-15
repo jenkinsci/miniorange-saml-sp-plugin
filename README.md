@@ -2,9 +2,7 @@
 
 ![image_1](docs/images/jenkins-sso.png)
 
-⭐  **
-Click [here](https://miniorange.atlassian.net/wiki/spaces/JSDoc/pages/2551251014/Jenkins+SAML+SSO+Premium+Version+Payment+Steps)
-to try out the premium plugin for free** ⭐
+⭐  **Click [here](https://miniorange.atlassian.net/wiki/spaces/JEN/pages/2962554886/Jenkins+Saml+SSO+Premium+Trial+Activation) to try out the premium plugin for free** ⭐
 
 **SAML Single Sign On (SSO) for Jenkins** plugin allows SSO with ADFS, Azure AD, Azure AD B2C, Keycloak, Okta,
 Shibboleth, Salesforce, GSuite / Google Apps, AWS, Office 365, SimpleSAMLphp, OpenAM, Centrify, Ping, RSA, IBM, Oracle,
@@ -31,6 +29,10 @@ into Jenkins.
 
 Facing issue with SSO? Refer below steps to generate error Logs and send it to info@xecurify.com. We will help you
 resolve your issue in no time.
+
+⭐  **Looking to connect Crowd to your Jenkins and manage users and groups from crowd seamlessly? Try our [Crowd Connector Plugin](https://www.miniorange.com/atlassian/jenkins-crowd-sso-connector#free-plugin) today!** ⭐
+
+⭐ **Secure your Jenkins environment with two-factor authentication with our 2FA Plugin. Try our [Jenkins 2FA Pluing](https://miniorange.atlassian.net/wiki/spaces/JEN/pages/2969239626/Jenkins+2FA+Premium+Trial+Activation+Guide) today.** ⭐
 
 ### **[Frequently Asked Questions](https://faq.miniorange.com/kb/jenkins/)**
 
@@ -64,7 +66,7 @@ LIST OF SUPPORTED IDPS:
   SSO for Jenkins login)
 * [Centrify](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-centrify-as-idp/) (supports SAML
   SSO for Jenkins login)
-* [SimpleSAML](https://plugins.miniorange.com/saml-single-sign-on-sso-into-jenkins-using-simplesaml) (supports SAML
+* [SimpleSAML](https://www.miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-simplesaml) (supports SAML
   SSO for Jenkins login)
 * [OpenAM](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-openam-as-idp/) (supports SAML SSO
   for Jenkins login)
@@ -72,11 +74,11 @@ LIST OF SUPPORTED IDPS:
   Jenkins login)
 * [RSA](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-rsa-securid/) (supports SAML SSO for
   Jenkins login)
-* [Oracle](https://miniorange.com/atlassian/saml-single-sign-on-sso-jira-using-oracle-enterprise-manager) (
+* [Oracle](https://www.miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-oracle-enterprise-manager) (
   supports SAML SSO for Jenkins login)
 * [Bitium](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-bitium-as-idp/) (supports SAML SSO
   for Jenkins login)
-* [WSO2](https://plugins.miniorange.com/saml-single-sign-on-sso-into-jenkins-using-wso2) (supports SAML SSO for Jenkins
+* [WSO2](https://www.miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-wso2) (supports SAML SSO for Jenkins
   login)
 * [Auth0](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-auth0-as-idp/) (supports SAML SSO for
   Jenkins login)
@@ -142,4 +144,3 @@ Or
   ![image_10](docs/images/configuration/metadataFilePath.png)
 * Manually enter the Idp side values and save the settings.
   ![image_10](docs/images/configuration/manual_Idp_configuration.png)
-

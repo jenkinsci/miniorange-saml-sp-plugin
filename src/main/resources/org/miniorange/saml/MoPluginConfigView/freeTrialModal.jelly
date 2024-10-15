@@ -94,8 +94,8 @@
 </div>
 
 <div class="mo-modal">
-<span class="mo-modal-heading">Unlock your premium trial!</span>
-<button class="jenkins-button jenkins-button--primary " onclick="handleModal()">Click here</button>
+<span class="mo-modal-heading">Unlock Your Premium Trial!</span>
+<button class="jenkins-button jenkins-button--primary " onclick="handleModal()" style = "font-size : 15px">Click here</button>
 </div>
 
 </j:jelly>

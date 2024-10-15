@@ -1,5 +1,6 @@
 package org.miniorange.saml;
 
+import hudson.util.Secret;
 import jenkins.model.Jenkins;
 import org.apache.commons.io.IOUtils;
 import java.io.IOException;
@@ -24,6 +25,11 @@ public class MoSAMLPluginSettings {
     private String  ssoBindingType;
     private List<MoAttributeEntry> samlCustomAttributes;
     private String authnContextClass;
+
+    //    //crowd groups fetch
+        private String crowdURL;
+        private String crowdApplicationName;
+        private Secret crowdApplicationPassword;
 
     private static final String PRIVATE_CERT_PATH = "/certificates/sp-key.key";
     private static final String PUBLIC_CERT_PATH = "/certificates/sp-certificate.crt";
@@ -52,7 +58,8 @@ public class MoSAMLPluginSettings {
                                  String usernameAttribute, String emailAttribute,
                                  String nameIDFormat, String loginType,
                                  String regexPattern, Boolean enableRegexPattern, Boolean signedRequest,
-                                 Boolean userCreate , Boolean forceAuthn, String ssoBindingType, List<MoAttributeEntry> samlCustomAttributes, String authnContextClass) {
+                                 Boolean userCreate , Boolean forceAuthn, String ssoBindingType, List<MoAttributeEntry> samlCustomAttributes, String authnContextClass, String crowdURL,
+                                 String crowdApplicationName, Secret crowdApplicationPassword) {
         this.idpEntityId = idpEntityId;
         this.ssoUrl = ssoUrl;
         this.publicx509Certificate = publicx509Certificate;
@@ -69,6 +76,9 @@ public class MoSAMLPluginSettings {
         this.ssoBindingType = (ssoBindingType != null) ? ssoBindingType : "HttpRedirect";
         this.samlCustomAttributes = samlCustomAttributes;
         this.authnContextClass= (authnContextClass != null) ? authnContextClass : "None";
+        this.crowdURL=crowdURL;
+        this.crowdApplicationName=crowdApplicationName;
+        this.crowdApplicationPassword=crowdApplicationPassword;
     }
 
 
@@ -175,4 +185,15 @@ public class MoSAMLPluginSettings {
         return authnContextClass;
     }
 
+    public String getCrowdURL() {
+        return crowdURL;
+    }
+
+    public String getCrowdApplicationName() {
+        return crowdApplicationName;
+    }
+
+    public Secret getCrowdApplicationPassword() {
+        return crowdApplicationPassword;
+    }
 }

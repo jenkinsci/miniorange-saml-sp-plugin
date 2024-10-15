@@ -1,5 +1,6 @@
 package org.miniorange.saml;
 
+import hudson.model.User;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
+import org.miniorange.saml.crowdIntegration.MoSAMLCrowdGroupManagement;
 
 public class MoSAMLTemplateManager {
 
@@ -59,6 +62,10 @@ public class MoSAMLTemplateManager {
                 htmlStart = htmlStart.append(StringUtils.join(values, "<hr/>"));
                 htmlStart = htmlStart.append("</td></tr>");
             }
+            //Crowd groups in test configuration
+            if (!(settings.getCrowdURL().isEmpty() && settings.getCrowdApplicationName().isEmpty() && settings.getCrowdApplicationPassword().getPlainText().isEmpty()))
+                crowdGroupsFetch(settings,htmlStart,username);
+
             htmlStart = htmlStart.append("</table></div>");
             htmlStart = htmlStart
                     .append("<div style=\"margin:3%;display:block;text-align:center;\"><input style=\"padding:1%;"
@@ -90,4 +97,41 @@ public class MoSAMLTemplateManager {
             response.getOutputStream().write(htmlStart.toString().getBytes(StandardCharsets.UTF_8));
         }
     }
+
+    private static boolean isValidURL(String url) {
+        if (url == null || url.isEmpty()) {
+            return false;
+        }
+        String regex = "^(https?://)(localhost|([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,})(:\\d+)?(/.*)?$"; // this regix allows localhost and any valid http, https , domains
+        return url.matches(regex);
+    }
+
+    private void crowdGroupsFetch(MoSAMLPluginSettings settings, StringBuffer htmlStart, String username) {
+        LOGGER.fine("in crowdGroupFetch for test configuration");
+        htmlStart.append("<tr><td style=\"font-weight:bold;border:2px solid #949090;padding:2%;\">Groups from Crowd</td>");
+        htmlStart.append("<td style=\"padding:2%;border:2px solid #949090;word-wrap:break-word;\">");
+
+        LOGGER.fine("checking Url validation of crowd..");
+        if(isValidURL(settings.getCrowdURL())){
+            LOGGER.fine("crowd url is valid.");
+            MoSAMLCrowdGroupManagement crowdGroupManagement = new MoSAMLCrowdGroupManagement();
+            List<String> groupsFromCrowd = crowdGroupManagement.directGroupsFromCrowd(settings, User.get(username));
+            if(groupsFromCrowd.isEmpty())
+            {
+                LOGGER.fine("User doesn't have any groups in crowd");
+                htmlStart.append("No groups are assigned to corresponding user in crowd");
+            }
+            else if("Empty".equals(groupsFromCrowd.get(0))){
+                LOGGER.fine("Groups couldn't be fetched due to status code or invalid application name or password ");
+                htmlStart.append("No groups could be fetched from Crowd");
+            }
+            else htmlStart.append(StringUtils.join(groupsFromCrowd, "<hr/>"));
+        }
+        else{
+            LOGGER.fine("crowd url is not valid.");
+            htmlStart = htmlStart.append("No groups could be fetched from Crowd");
+        }
+        htmlStart = htmlStart.append("</td></tr>");
+    }
 }
+
