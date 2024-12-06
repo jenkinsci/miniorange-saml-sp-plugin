@@ -7,7 +7,7 @@
             <l:tasks>
                 <l:task title="back" href="../" icon="symbol-arrow-up"/>
                 <l:task contextMenu="false" href="../../asynchPeople/" icon="symbol-people" title="${%People}"/>
-                <l:task contextMenu="false" href="#" icon="symbol-folder" title="${%Import SAML Configuration}" onclick="uploadConfig()"/>
+                <l:task contextMenu="false" href="#" icon="symbol-folder" title="${%Import SAML Configuration}" data-callback="uploadConfig"/>
                 <l:task contextMenu="false" href="./download" icon="symbol-download" title="${%Download SAML Configuration}"/>
             </l:tasks>
 
@@ -201,7 +201,7 @@
 
                     <f:entry title="${%Map first name and last name as separate attribute ?}"
                              field="splitnameAttribute">
-                        <f:checkbox onclick="return false" checked="false"/>
+                        <f:checkbox readonly="true" checked="false"/>
                     </f:entry>
 
                     <f:entry title="${%Apply regex Pattern to the UserName: }" field="enableRegexPattern">
@@ -235,7 +235,7 @@
                     </f:entry>
 
                     <f:entry title="${%Send Signed Request ? }" field="signedRequest">
-                        <f:checkbox onclick="return false"/>
+                        <f:checkbox readonly="true"/>
                     </f:entry>
 
                     <f:entry title="${%Create new user after SSO? }" field="userCreate">
@@ -252,7 +252,7 @@
                     </f:entry>
 
                     <f:entry title="${%Update Attributes of Existing Users ? }" field="userAttributeUpdate">
-                        <f:checkbox onclick="return false"/>
+                        <f:checkbox readonly="true"/>
                     </f:entry>
 
                     <f:entry title="Custom Attributes"
@@ -270,7 +270,7 @@
                     </f:entry>
 
                     <f:entry title="${%Disable Default Login ? }" field="disableDefaultLogin">
-                        <f:checkbox onclick="return false"/>
+                        <f:checkbox readonly="true"/>
                     </f:entry>
                 </f:section>
 

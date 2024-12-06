@@ -1,9 +1,10 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core">
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
 
+    <st:adjunct includes="org.miniorange.saml.MoPluginConfigView.free-trial-modal-onclicks"/>
     <div id="modal-dialog" class="modal">
     <div class="modal-content trial-modal-top-margin">
-        <span id="close-btn" onclick="handleCloseBtn()">X</span>
+        <span id="close-btn">X</span>
         <div class="modal-header">
             <span>Start your free Premium trial now</span>
         </div>
@@ -95,7 +96,7 @@
 
 <div class="mo-modal">
 <span class="mo-modal-heading">Unlock your premium trial!</span>
-<button class="jenkins-button jenkins-button--primary " onclick="handleModal()">Click here</button>
+<button class="jenkins-button jenkins-button--primary free-trial-btn">Click here</button>
 </div>
 
 </j:jelly>
