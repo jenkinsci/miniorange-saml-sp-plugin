@@ -19,9 +19,6 @@
 
         </div>
         <form method="post" name="login" action="moLoginAction">
-            <input type="hidden" />
-
-
             <div class="formRow jenkins-form-item jenkins-form-item--tight" style="margin-bottom: 15px">
                 <input autocorrect="off" name="j_username" id="j_username" placeholder="Username" type="text" class="jenkins-input normal" autocapitalize="off" style="width: 100%;"/>
             </div>
@@ -30,12 +27,22 @@
             </div>
             <input name="from" type="hidden" value="/" />
             <div class="submit formRow jenkins-form-item jenkins-form-item--tight">
-                <input name="Submit" type="submit" value="Sign in" class="submit jenkins-button jenkins-button--primary" /><br><p style="text-align: center" ><b>OR</b></p>
-                <input name="idpLoginButton" type="button" value="Login with IDP" class="jenkins-button jenkins-button--primary"
-                       onclick="window.location.href = 'moSamlLogin'" style="width: 100%;text-align: center;background-color: # 0b6aa2;"/>
+                <input name="Submit" type="submit" value="Sign in" class="submit jenkins-button jenkins-button--primary" /><p style="text-align: center" ></p>
             </div>
         </form>
-        <div></div>
+
+        <div style=" display: flex; justify-content: center; align-items: center;">
+            <b>OR</b>
+        </div>
+
+        <form method="post" name="moLogin" action="moSamlLogin">
+            <div>
+                <input name="idpLoginButton" type="submit" value="Login with IDP" class="jenkins-button jenkins-button--primary"
+                   style="width: 100%;text-align: center;background-color: #063F61; margin-top: 14px"/>
+                <input name="from" type="hidden" value="/" />
+            </div>
+        </form>
+
         <div class="footer"></div>
     </div>
 </div>

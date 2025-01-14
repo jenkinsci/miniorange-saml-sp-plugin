@@ -1,0 +1,62 @@
+.main-container {
+    font-family: Calibri;
+    padding: 2%;
+}
+
+.error-header {
+    color: #a94442;
+    background-color: #f2dede;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #E6B3B2;
+    font-size: 18pt;
+}
+
+.error-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+    width: 70%;
+    font-size: 14pt;
+}
+
+.table-header {
+    font-weight: bold;
+    padding: 10px 5px;
+    width: 15%;
+}
+
+.table-cell {
+    word-wrap: break-word;
+    padding: 10px 5px;
+}
+
+.certificate-cell {
+    display: flex;
+    gap: 2em;
+    align-items: center;
+}
+
+.certificate-textarea {
+    margin: 0px;
+    height: 150px;
+}
+
+.copy-button {
+    background: #0091CD !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.done-button-container {
+    margin: 3%;
+    text-align: center;
+    width: 60%;
+}
+
+.done-button {
+    background: #0091CD !important;
+    border: none !important;
+    color: #fff !important;
+}

@@ -13,7 +13,8 @@ import java.util.logging.Logger;
 @Extension
 public class MoSAMLCrumbExclusion extends CrumbExclusion {
     private static final Logger LOGGER = Logger.getLogger(MoSAMLCrumbExclusion.class.getName());
-    private static final String MO_SAML_JENKINS_LOGIN_ACTION = "/" + MoSAMLAddIdp.MO_SAML_JENKINS_LOGIN_ACTION;
+    private static final String MO_JENKINS_LOGIN_ACTION = "/" + MoSAMLAddIdp.MO_JENKINS_LOGIN_ACTION;
+    private static final String MO_JENKINS_SAML_LOGIN_ACTION = "/" + MoSAMLAddIdp.MO_JENKINS_SAML_LOGIN_ACTION;
     private static final String MO_SAML_SSO_FORCE_STOP = "/" + MoSAMLAddIdp.MO_SAML_SSO_FORCE_STOP;
     private static final String MO_SAML_SP_AUTH_URL = "/" + MoSAMLAddIdp.MO_SAML_SP_AUTH_URL;
 
@@ -29,7 +30,7 @@ public class MoSAMLCrumbExclusion extends CrumbExclusion {
     }
 
     private boolean ignoreCrumbCheck(String pathInfo) {
-        if (pathInfo!=null && (pathInfo.equals(MO_SAML_JENKINS_LOGIN_ACTION) || pathInfo.equals(MO_SAML_JENKINS_LOGIN_ACTION + "/"))) {
+        if (pathInfo!=null && (pathInfo.equals(MO_JENKINS_LOGIN_ACTION) || pathInfo.equals(MO_JENKINS_LOGIN_ACTION + "/") || pathInfo.equals(MO_JENKINS_SAML_LOGIN_ACTION))) {
             return true;
         }
        else if (pathInfo!=null && (pathInfo.equals(MO_SAML_SSO_FORCE_STOP) || pathInfo.equals(MO_SAML_SSO_FORCE_STOP + "/"))) {

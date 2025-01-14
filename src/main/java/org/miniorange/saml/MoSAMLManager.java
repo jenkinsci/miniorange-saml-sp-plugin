@@ -220,7 +220,7 @@ public class MoSAMLManager {
 
     private Boolean verifyCertificate(Response response, Assertion assertion, String x509Certificate) {
         LOGGER.fine("Verifying Certificates.");
-        if (x509Certificate != null)
+        if (x509Certificate != null) {
             try {
                 if (!response.isSigned() && !assertion.isSigned()) {
                     MoSAMLException e = new MoSAMLException(MoSAMLException.SAMLErrorCode.ASSERTION_NOT_SIGNED);
@@ -236,40 +236,26 @@ public class MoSAMLManager {
                     return MoSAMLUtils.verifyCertificate(assertion, x509Certificate);
                 }
                 LOGGER.fine("Error occurred while verifying the certificate");
-            } catch (CertificateException e) {
-                MoSAMLException.SAMLErrorCode errorCode = MoSAMLException.SAMLErrorCode.INVALID_CERTIFICATE;
-                MoSAMLException samlexception = new MoSAMLException(errorCode.getMessage(),
-                        buildResolutionforcertificate(errorCode, assertion, response), errorCode);
-
-                LOGGER.fine(samlexception.getMessage());
-                throw samlexception;
             } catch (ValidationException e) {
-                MoSAMLException.SAMLErrorCode errorCode = MoSAMLException.SAMLErrorCode.INVALID_SIGNATURE;
-                MoSAMLException samlexception = new MoSAMLException(errorCode.getMessage(),
-                        buildResolutionforcertificate(errorCode, assertion, response), errorCode);
-
-                LOGGER.fine(samlexception.getMessage());
-                throw samlexception;
-            } catch (NoSuchAlgorithmException e) {
-                MoSAMLException.SAMLErrorCode errorCode = MoSAMLException.SAMLErrorCode.INVALID_CERTIFICATE;
-                MoSAMLException samlexception = new MoSAMLException(errorCode.getMessage(),
-                        buildResolutionforcertificate(errorCode, assertion, response), errorCode);
-
-                LOGGER.fine(samlexception.getMessage());
-                throw samlexception;
-            } catch (InvalidKeySpecException e) {
-                MoSAMLException.SAMLErrorCode errorCode = MoSAMLException.SAMLErrorCode.INVALID_CERTIFICATE;
-                MoSAMLException samlexception = new MoSAMLException(errorCode.getMessage(),
-                        buildResolutionforcertificate(errorCode, assertion, response), errorCode);
-
-                LOGGER.fine(samlexception.getMessage());
-                throw samlexception;
+                handleSamlException(MoSAMLException.SAMLErrorCode.INVALID_SIGNATURE, assertion, response);
+            } catch (CertificateException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+                handleSamlException(MoSAMLException.SAMLErrorCode.INVALID_CERTIFICATE, assertion, response);
             }
+        }
         return false;
     }
 
+    private void handleSamlException(MoSAMLException.SAMLErrorCode errorCode, Assertion assertion, Response response) throws MoSAMLException {
+        buildExpectedCertificate(errorCode, assertion, response);
+        MoSAMLException samlException = new MoSAMLException(certificateexpected, errorCode.getResolution(), errorCode);
 
-    private String buildResolutionforcertificate(MoSAMLException.SAMLErrorCode error, Assertion assertion, Response response) {
+        LOGGER.fine(samlException.getMessage());
+        throw samlException;
+    }
+
+
+
+    private void buildExpectedCertificate(MoSAMLException.SAMLErrorCode error, Assertion assertion, Response response) {
         try {
             if (assertion.isSigned()) {
                 List<X509Data> x509Datas = assertion.getSignature().getKeyInfo().getX509Datas();
@@ -295,22 +281,6 @@ public class MoSAMLManager {
             LOGGER.fine(e.getMessage());
 
         }
-        StringBuffer errorMsg = new StringBuffer(error.getResolution());
-        errorMsg.append(" Expected certificate : ");
-        errorMsg.append(
-                "<textarea rows='6' cols='100' word-wrap='break-word;' style='width:580px; margin:0px; " +
-                        "height:290px;' id ='errormsg' readonly>-----BEGIN CERTIFICATE-----" + certificateexpected + "-----END CERTIFICATE-----</textarea> ");
-        errorMsg.append(
-                "<div style=\"margin:3%;display:block;text-align:center;\"><input id =\"copy-button\" style=\"padding:1%;"
-                        + "width:150px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;"
-                        + "border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;"
-                        + "box-sizing:border-box;border-color: #0073AA;box-shadow:0px 1px 0px rgba(120,200,230,0.6) inset;"
-                        + "color: #FFF;\" type=\"button\" value=\"Copy to Clipboard\"></div>");
-        errorMsg.append("<script>" + "document.querySelector(\"#copy-button\").onclick = function() {"
-                + "document.querySelector(\"#errormsg\").select();" + "document.execCommand('copy');" + "};"
-                + "</script>");
-
-        return errorMsg.toString();
     }
 
     private Map<String, String[]> getAttributes(Assertion assertion) {

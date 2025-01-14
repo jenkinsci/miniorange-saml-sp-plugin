@@ -1,0 +1,52 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:st="jelly:stapler">
+
+    <l:layout title="Test configuration failed" type="full-screen">
+        <l:main-panel>
+            <st:adjunct includes="org.miniorange.saml.assets.CSS.TestConfigurationFailed"/>
+
+            <div class="main-container">
+                <div class="error-header">
+                    TEST FAILED
+                </div>
+
+                <table class="error-table">
+                    <tr>
+                        <td class="table-header">Error Code</td>
+                        <td class="table-cell">${it.errorCode}</td>
+                    </tr>
+                    <tr>
+                        <td class="table-header">Error Message</td>
+                        <td class="table-cell">${it.errorMessage}</td>
+                    </tr>
+                    <tr>
+                        <td class="table-header">Resolution</td>
+                        <td class="table-cell">${it.resolution}</td>
+                    </tr>
+
+                    <j:if test="${it.errorCode == 'MO_ERROR_003' || it.errorCode == 'MO_ERROR_007'}">
+                        <tr>
+                            <td class="table-header">Expected Certificate</td>
+                            <td class="table-cell certificate-cell">
+                                <textarea class="certificate-textarea" rows="6" cols="100" id="errormsg" readonly="true">
+                                    -----BEGIN CERTIFICATE-----
+                                    ${it.certificateExpected}
+                                    -----END CERTIFICATE-----
+                                </textarea>
+
+                                <div class="copy-button-container">
+                                    <input id="copy-button" class="copy-button" type="button" value="Copy to Clipboard"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </j:if>
+                </table>
+
+                <div class="done-button-container">
+                    <input class="done-button"  id="doneButton" type="button" value="Done"/>
+                </div>
+            </div>
+            <st:adjunct includes="org.miniorange.saml.assets.JS.TestConfigurationFailed"/>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

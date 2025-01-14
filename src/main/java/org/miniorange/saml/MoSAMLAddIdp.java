@@ -16,6 +16,7 @@ import hudson.util.FormValidation;
 import jenkins.model.Jenkins;
 import jenkins.security.SecurityListener;
 import org.kohsuke.stapler.verb.POST;
+import org.miniorange.saml.testConfiguration.TestConfigurationFailed;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -71,7 +72,8 @@ public class MoSAMLAddIdp extends SecurityRealm {
 
     private static final Logger LOGGER = Logger.getLogger(MoSAMLAddIdp.class.getName());
     public static final String MO_SAML_SP_AUTH_URL = "securityRealm/moSamlAuth";
-    public static final String MO_SAML_JENKINS_LOGIN_ACTION = "securityRealm/moLoginAction";
+    public static final String MO_JENKINS_LOGIN_ACTION = "securityRealm/moLoginAction";
+    public static final String MO_JENKINS_SAML_LOGIN_ACTION = "securityRealm/moSamlLogin";
     public static final String MO_SAML_SSO_FORCE_STOP = "securityRealm/moSAMLSingleSignOnForceStop";
     private static final String LOGIN_TEMPLATE_PATH = "/templates/mosaml_login_page_template.html";
     private static final String REFERER_ATTRIBUTE = MoSAMLAddIdp.class.getName() + ".referer";
@@ -103,6 +105,8 @@ public class MoSAMLAddIdp extends SecurityRealm {
     private String newUserGroup;
     private String authnContextClass;
     private static Set<String> nonceSet = new HashSet<>();
+
+    private transient TestConfigurationFailed tcf;
 
     //crowd groups fetch
     private String crowdURL;
@@ -664,7 +668,7 @@ public class MoSAMLAddIdp extends SecurityRealm {
         }
         LOGGER.fine("Relay state is "+ redirectUrl);
         recreateSession(request);
-        LOGGER.fine(" Reading SAML Response");
+        LOGGER.fine("Reading SAML Response");
         String username = "";
         String email = "";
         MoSAMLPluginSettings settings = getMoSAMLPluginSettings();
@@ -674,15 +678,13 @@ public class MoSAMLAddIdp extends SecurityRealm {
 
         try {
             moSAMLResponse = moSAMLManager.readSAMLResponse(request, response,settings);
-
             if(checkIdpInitiatedFlow && moSAMLResponse.getInResponseTo() != null ){
                 throw new MoSAMLException("Invalid Response", MoSAMLException.SAMLErrorCode.RESPONDER);
             }
 
             if (StringUtils.contains(relayState, "testidpconfiguration")) {
                 LOGGER.fine("Showing Test Configuration Result");
-                moSAMLTemplateManager.showTestConfigurationResult(moSAMLResponse, request, response, null);
-                return null;
+                return moSAMLTemplateManager.showTestConfigurationResult(moSAMLResponse, request, response);
             }
             LOGGER.fine("Not showing test config");
 
@@ -755,11 +757,30 @@ public class MoSAMLAddIdp extends SecurityRealm {
                 return doMoLogin(request, response, errorMessage);
             }
 
-        } catch (Exception ex) {
+        }
+        catch(MoSAMLException e){
+
+            if (StringUtils.contains(relayState, "testidpconfiguration")) {
+                LOGGER.fine("Error in Test Configuration Result");
+                tcf = new TestConfigurationFailed(e.getErrorCode().getCode(), e.getErrorCode().getMessage(), e.getResolution(), e.getMessage());
+                return HttpResponses.redirectTo("testConfigurationFailed");
+            }
+
+            LOGGER.fine("Invalid response");
+            String errorMessage = "<div class=\"alert alert-danger\">Error occurred while reading response.</div><br>";
+            return doMoLogin(request, response, errorMessage);
+
+        }
+        catch (Exception ex) {
             LOGGER.fine("Invalid response");
             String errorMessage = "<div class=\"alert alert-danger\">Error occurred while reading response.</div><br>";
             return doMoLogin(request, response, errorMessage);
         }
+    }
+
+    @SuppressWarnings("unused")
+    public TestConfigurationFailed getTestConfigurationFailed() {
+        return tcf;
     }
 
     private String loadUserName(String username) {

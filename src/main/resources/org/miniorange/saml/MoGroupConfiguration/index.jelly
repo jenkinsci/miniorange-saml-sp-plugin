@@ -13,10 +13,8 @@
                 <l:main-panel>
                         <st:adjunct includes="org.miniorange.saml.assets.CSS.modal"/>
                         <st:adjunct includes="org.miniorange.saml.MoPluginConfigView.freeTrialModal"/>
-                        <st:adjunct includes="org.miniorange.saml.MoPluginConfigView.uploadPluginConfigModal"/>
 
                         <j:set var="securityRealm" value="${it.realm}"/>
-                        <j:set var="jvar_baseUrl" value="${securityRealm.descriptor.getBaseUrl()}"/>
 
                         <f:form method="post" action="saveConfiguration" name="replace" descriptor="${securityRealm.descriptor}">
                                 <f:section title="Sync groups from IDP">
@@ -67,14 +65,14 @@
                                         </f:entry>
 
                                         <f:entry title="${%Do you want to update Attributes of Users from Crowd? }" field="updateUserFromCrowd" >
-                                                <f:checkbox onclick="return false" checked="false"/>
+                                                <f:checkbox class="disable_" checked="false"/>
                                         </f:entry>
 
                                         <f:block>
                                                 <table>
-                                                        <f:optionalBlock  inline="true" field="updateGroupsFromCrowd" title="Do you want to update Groups of Users from Crowd?" checked="true" disabled="true"  >
-                                                                <f:entry title="${%Fetch nested groups from Crowd? }" field="updateNestedGroupsFromCrowd" >
-                                                                        <f:checkbox onclick="return false" checked="false"/>
+                                                        <f:optionalBlock  inline="true" field="updateGroupsFromCrowd" title="Do you want to update Groups of Users from Crowd?" checked="true">
+                                                                <f:entry title="${%Fetch nested groups from Crowd? }" field="updateNestedGroupsFromCrowd">
+                                                                        <f:checkbox class="disable_" checked="false"/>
                                                                 </f:entry>
                                                         </f:optionalBlock>
                                                 </table>
@@ -89,6 +87,7 @@
                                 </l:isAdmin>
                         </f:form>
                         <st:adjunct includes="org.miniorange.saml.assets.JS.modal"/>
+                        <st:adjunct includes="org.miniorange.saml.assets.JS.index"/>
                 </l:main-panel>
 
         </l:layout>

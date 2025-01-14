@@ -8,7 +8,7 @@
                 <l:task title="back" href="../" icon="symbol-arrow-up"/>
                 <l:task title="Setup Guide" href="https://www.miniorange.com/atlassian/jenkins-saml-sso-documentation" icon="symbol-document-text" target="_blank"/>
                 <l:task title="Groups Configuration" href="./groupsConfiguration" icon="symbol-people"/>
-                <l:task contextMenu="false" href="#" icon="symbol-folder" title="${%Import SAML Configuration}" onclick="uploadConfig()"/>
+                <l:task contextMenu="false" href="#" icon="symbol-folder" title="${%Import SAML Configuration}" id="openUploadConfigModal"/>
                 <l:task contextMenu="false" href="./download" icon="symbol-download" title="${%Download SAML Configuration}"/>
             </l:tasks>
 
@@ -202,7 +202,7 @@
 
                     <f:entry title="${%Map first name and last name as separate attribute ?}"
                              field="splitnameAttribute">
-                        <f:checkbox onclick="return false" checked="false"/>
+                        <f:checkbox id="splitnameAttribute" class="disable_"/>
                     </f:entry>
 
                     <f:entry title="${%Apply regex Pattern to the UserName: }" field="enableRegexPattern">
@@ -236,7 +236,7 @@
                     </f:entry>
 
                     <f:entry title="${%Send Signed Request ? }" field="signedRequest">
-                        <f:checkbox onclick="return false"/>
+                        <f:checkbox id="signedRequest" class="disable_"/>
                     </f:entry>
 
                     <f:entry title="${%Create new user after SSO? }" field="userCreate">
@@ -253,7 +253,7 @@
                     </f:entry>
 
                     <f:entry title="${%Update Attributes of Existing Users ? }" field="userAttributeUpdate">
-                        <f:checkbox onclick="return false"/>
+                        <f:checkbox id="userAttributeUpdate" class="disable_"/>
                     </f:entry>
 
                     <f:entry title="Custom Attributes"
@@ -267,7 +267,7 @@
                     </f:entry>
 
                     <f:entry title="${%Disable Default Login ? }" field="disableDefaultLogin">
-                        <f:checkbox onclick="return false"/>
+                        <f:checkbox id="disableDefaultLogin" class="disable_"/>
                     </f:entry>
 
                     <f:block >
@@ -292,6 +292,8 @@
                 </l:isAdmin>
 
                 <st:adjunct includes="org.miniorange.saml.assets.JS.modal"/>
+                <st:adjunct includes="org.miniorange.saml.assets.JS.index"/>
+
 
             </f:form>
         </l:main-panel>
