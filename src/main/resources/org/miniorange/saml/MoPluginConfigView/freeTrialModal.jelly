@@ -1,7 +1,7 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core">
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
 
-    <div id="modal-dialog" class="modal">
+<div id="modal-dialog" class="modal">
     <div class="modal-content trial-modal-top-margin">
         <span id="close-btn">X</span>
         <div class="modal-header">
@@ -50,10 +50,11 @@
                 </ul>
 
                 <div class="redirection-box">
-                    <a class="buy-now-link" href="https://miniorange.com/atlassian/jenkins-single-sign-on#free-plugin"
-                       target="_blank">Get
-                        your free Premium trial
-                    </a>
+                    <form method="post" action="./installPlugin" id="installPluginForm">
+                        <button id="GetYourPremiumTrialBtn" class="buy-now-link" type="button">
+                            Get Your Premium Trial
+                        </button>
+                    </form>
                 </div>
 
             </div>
@@ -85,7 +86,7 @@
                 <div class="redirection-box">
                     <a class="buy-now-link"
                        href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/initializepayment&amp;requestOrigin=jenkins_saml_premium_plan"
-                       target="_blank">Buy Premium plugin
+                       target="_blank">Buy Premium Plugin
                     </a>
                 </div>
             </div>
@@ -93,9 +94,37 @@
     </div>
 </div>
 
-<div class="mo-modal">
-<span class="mo-modal-heading">Unlock Your Premium Trial!</span>
-<button class="jenkins-button jenkins-button--primary " id="modal-open-button" style="font-size : 15px">Click here</button>
+<div id="overlay" style="display:none"></div>
+
+    <!-- Confirmation Popup -->
+<div id="confirmationPopup" >
+    <span class="close-btn">X</span>
+    <h2>Confirm Plugin Installation</h2>
+    <p>The premium trial will work for 30 days. After installation, <strong>Jenkins must be restarted</strong> for the changes to take effect.</p>
+    <br/>
+
+<f:form method="post" action="confirmationFormSubmit" name="confirmationForm">
+    <f:entry  title="Name: " field="name">
+        <f:textbox id="name" name="name" placeholder="What is your name?"/>
+    </f:entry>
+    <f:entry title="Email: " field="email">
+        <f:textbox id="email" name="email"  placeholder="What is your email address?"/>
+    </f:entry>
+    <f:entry title="Organisation Name: " field="orgName">
+        <f:textbox id="orgName" name="orgName" placeholder="What is your organisation name?"/>
+    </f:entry>
+</f:form>
+
+    <button id="confirm-button" class="jenkins-button jenkins-button--positive">Confirm and Install</button>
+    <button id="cancel-button" class="jenkins-button jenkins-button--negative">Cancel</button>
 </div>
+
+    <div class="mo-modal jenkins-alert jenkins-alert-info">
+        <strong class="mo-modal-heading">Experience Premium Now!</strong>
+        <div class="alert-button-container">
+            <button class="ShowDifferenceBtn" id="modal-open-button">Why Premium?</button>
+            <button class="jenkins-button jenkins-button--primary " id="GetYourPremiumTrialBtn2">Upgrade to Premium</button>
+        </div>
+    </div>
 
 </j:jelly>

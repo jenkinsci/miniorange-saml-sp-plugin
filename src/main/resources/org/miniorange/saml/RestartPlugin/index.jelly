@@ -1,0 +1,15 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout">
+    <l:layout title="Restart Required">
+        <l:main-panel>
+            <div align="center" style="margin-top: 50px;">
+                <img src="${it.getContextPath()}/plugin/miniorange-saml-sp/images/logo.svg" alt="Jenkins Logo" width="150" height="200"/>
+                <h2 style="font-weight: 700;color: #333; margin-top: 1%; margin-left: 2%">Plugin Installed Successfully.</h2>
+                <p>
+                    <span style="border-radius: 6px; padding: 1%;background-color: #95eb95;font-size: larger;">Please restart Jenkins for the changes to take effect.</span>
+                </p>
+                <br/>
+            </div>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>
