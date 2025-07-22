@@ -120,7 +120,7 @@
 </div>
 
     <div class="mo-modal jenkins-alert jenkins-alert-info">
-        <strong class="mo-modal-heading">Experience Premium Now!</strong>
+        <strong class="mo-modal-heading">Experience Premium Plugin Now!</strong>
         <div class="alert-button-container">
             <button class="ShowDifferenceBtn" id="modal-open-button">Why Premium?</button>
             <button class="jenkins-button jenkins-button--primary " id="GetYourPremiumTrialBtn2">Upgrade to Premium</button>
