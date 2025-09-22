@@ -346,11 +346,14 @@ public class MoSAMLAddIdp extends SecurityRealm {
 
         String base64Nonce = createNonce();
         nonceSet.add(base64Nonce);
-        String relayState = StringUtils.substringAfter(calculateSafeRedirect(redirectOnFinish), "from=");
-        session.setAttribute(MoSAMLUtils.RELAY_STATE_PARAM, relayState);
+        String redirectUrl = calculateSafeRedirect(redirectOnFinish);
+        String fromParam = StringUtils.substringAfter(redirectUrl, "from=");
+        String flowType = StringUtils.equals(fromParam, "testidpconfiguration") ? "testidpconfiguration" : StringUtils.EMPTY;
+        String relayState = StringUtils.join(new String[] {base64Nonce, flowType}, '|');
+
         LOGGER.fine("in doMoSamlLogin");
         MoSAMLManager moSAMLManager = new MoSAMLManager();
-        moSAMLManager.createAuthnRequestAndRedirect(request, response, base64Nonce, getMoSAMLPluginSettings());
+        moSAMLManager.createAuthnRequestAndRedirect(request, response, relayState, getMoSAMLPluginSettings());
     }
 
     public String getBaseUrl() {
@@ -648,7 +651,11 @@ public class MoSAMLAddIdp extends SecurityRealm {
         String redirectUrl = StringUtils.EMPTY;
         boolean checkIdpInitiatedFlow = false;
 
-        String nonce = request.getParameter(MoSAMLUtils.RELAY_STATE_PARAM);
+        String relayStateFromIdP = request.getParameter(MoSAMLUtils.RELAY_STATE_PARAM);
+
+        String[] parts = relayStateFromIdP.split("\\|", 2);
+        String nonce = parts[0];
+        String flowType = parts[1];
 
         // Remove the nonce value from the HashSet to prevent replay attacks
         if (nonceSet.contains(nonce)) {
@@ -658,10 +665,8 @@ public class MoSAMLAddIdp extends SecurityRealm {
             checkIdpInitiatedFlow = true;
         }
 
-        String relayState = (String) request.getSession().getAttribute(MoSAMLUtils.RELAY_STATE_PARAM);
-
-        if(!StringUtils.isEmpty(relayState)){
-            redirectUrl= URLDecoder.decode(relayState, "UTF-8");
+        if (!StringUtils.isEmpty(flowType) && flowType.equals("testidpconfiguration")) {
+            redirectUrl = URLDecoder.decode(flowType, "UTF-8");
         }
         if(StringUtils.isEmpty(redirectUrl)){
             redirectUrl = getBaseUrl();
@@ -682,7 +687,7 @@ public class MoSAMLAddIdp extends SecurityRealm {
                 throw new MoSAMLException("Invalid Response", MoSAMLException.SAMLErrorCode.RESPONDER);
             }
 
-            if (StringUtils.contains(relayState, "testidpconfiguration")) {
+            if (StringUtils.equals(flowType, "testidpconfiguration")) {
                 LOGGER.fine("Showing Test Configuration Result");
                 return moSAMLTemplateManager.showTestConfigurationResult(moSAMLResponse, request, response);
             }
@@ -760,7 +765,7 @@ public class MoSAMLAddIdp extends SecurityRealm {
         }
         catch(MoSAMLException e){
 
-            if (StringUtils.contains(relayState, "testidpconfiguration")) {
+            if (StringUtils.contains(flowType, "testidpconfiguration")) {
                 LOGGER.fine("Error in Test Configuration Result");
                 tcf = new TestConfigurationFailed(e.getErrorCode().getCode(), e.getErrorCode().getMessage(), e.getResolution(), e.getMessage());
                 return HttpResponses.redirectTo("testConfigurationFailed");

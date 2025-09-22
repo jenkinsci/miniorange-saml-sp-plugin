@@ -1,0 +1,2 @@
+_extends: .github
+tag-template:  miniorange-saml-sp-$NEXT_MINOR_VERSION
