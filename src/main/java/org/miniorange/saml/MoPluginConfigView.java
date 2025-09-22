@@ -12,10 +12,7 @@ import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.fileupload.FileItem;
-<<<<<<< HEAD
-=======
 import org.apache.commons.fileupload.FileUploadException;
->>>>>>> 7c576656c9304fa2becff2587d278ac4fd6e592e
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
