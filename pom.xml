@@ -24,7 +24,7 @@
     <properties>
         <revision>2.3.0</revision>
         <changelist>-SNAPSHOT</changelist>
-        <jenkins.version>2.319.3</jenkins.version>
+        <jenkins.version>2.437</jenkins.version>
         <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
         <spotbugs.threshold>High</spotbugs.threshold>
     </properties>
