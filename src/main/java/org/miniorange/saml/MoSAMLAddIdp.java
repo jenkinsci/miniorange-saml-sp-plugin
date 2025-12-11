@@ -348,7 +348,14 @@ public class MoSAMLAddIdp extends SecurityRealm {
         nonceSet.add(base64Nonce);
         String redirectUrl = calculateSafeRedirect(redirectOnFinish);
         String fromParam = StringUtils.substringAfter(redirectUrl, "from=");
-        String flowType = StringUtils.equals(fromParam, "testidpconfiguration") ? "testidpconfiguration" : StringUtils.EMPTY;
+        String flowType = "";
+        try {
+            flowType = StringUtils.equals(fromParam, "testidpconfiguration")
+                    ? "testidpconfiguration"
+                    : URLDecoder.decode(fromParam, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.fine("Failed to decode fromParam: " + fromParam + ". Using raw value.");
+        }
         String relayState = StringUtils.join(new String[] {base64Nonce, flowType}, '|');
 
         LOGGER.fine("in doMoSamlLogin");
@@ -653,19 +660,24 @@ public class MoSAMLAddIdp extends SecurityRealm {
 
         String relayStateFromIdP = request.getParameter(MoSAMLUtils.RELAY_STATE_PARAM);
 
-        String[] parts = relayStateFromIdP.split("\\|", 2);
-        String nonce = parts[0];
-        String flowType = parts[1];
+        String nonce = "";
+        String flowType = "";
+
+        if (relayStateFromIdP != null && relayStateFromIdP.contains("|")) {
+            String[] parts = relayStateFromIdP.split("\\|", 2);
+            nonce = parts[0];
+            flowType = parts[1];
+        }
 
         // Remove the nonce value from the HashSet to prevent replay attacks
-        if (nonceSet.contains(nonce)) {
+        if (!StringUtils.isEmpty(nonce) && nonceSet.contains(nonce)) {
             nonceSet.remove(nonce);
         } else {
             LOGGER.fine("Error in Nonce value, Repeated SAML response: ");
             checkIdpInitiatedFlow = true;
         }
 
-        if (!StringUtils.isEmpty(flowType) && flowType.equals("testidpconfiguration")) {
+        if (!StringUtils.isEmpty(flowType) && !flowType.equals("testidpconfiguration")) {
             redirectUrl = URLDecoder.decode(flowType, "UTF-8");
         }
         if(StringUtils.isEmpty(redirectUrl)){
@@ -1423,6 +1435,11 @@ public class MoSAMLAddIdp extends SecurityRealm {
 
         @POST
         public FormValidation doCheckUpdateNestedGroupsFromCrowd(@QueryParameter Boolean updateNestedGroupsFromCrowd) {
+            checkAdminPermission();
+            return FormValidation.warning("Available in premium version");
+        }
+        @POST
+        public FormValidation doCheckUseCrowdNativeLogin(@QueryParameter Boolean useCrowdNativeLogin) {
             checkAdminPermission();
             return FormValidation.warning("Available in premium version");
         }

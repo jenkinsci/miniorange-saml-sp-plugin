@@ -1,123 +1,123 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
 
-    <div id="modal-dialog" class="modal">
-        <div class="modal-content trial-modal-top-margin">
-            <span id="close-btn">X</span>
-            <div class="modal-header">
-                <span>Start your free Premium trial now</span>
-            </div>
-            <div class="card-container">
-                <div class="card prpl-brdr">
-                    <h1 class="product">Free</h1>
-                    <ul class="difference-list">
-                        <li>Unlimited Authentications</li>
-                        <li>Unlimited User creation through SSO</li>
-                        <li>Attribute Mapping</li>
-                        <li class="pricing-list-oauth">
-                            <br/>
-                        </li>
-                        <li class="pricing-list-oauth">
-                            <br/>
-                        </li>
-                        <li class="pricing-list-oauth">
-                            <br/>
-                        </li>
-                        <li class="pricing-list-oauth">
-                            <br/>
-                        </li>
-                        <li class="pricing-list-oauth">
-                            <br/>
-                        </li>
-                        <li class="pricing-list-oauth">
-                            <br/>
-                        </li>
-                        <li class="pricing-list-oauth">
-                            <br/>
-                        </li>
-                        <li>
-                            <p>
-                                <b>Support</b>
-                            </p>
-                            <p>Basic Email Support Plans On Demand</p>
-                            <p class="contactus-margin">
-                                <a href="https://miniorange.atlassian.net/servicedesk/customer/portal/2"
-                                   target="_blank" class="contact-us-link">Contact Us
-                                </a>
-                            </p>
-                        </li>
+<div id="modal-dialog" class="modal">
+    <div class="modal-content trial-modal-top-margin">
+        <span id="close-btn">X</span>
+        <div class="modal-header">
+            <span>Start your free Premium trial now</span>
+        </div>
+        <div class="card-container">
+            <div class="card prpl-brdr">
+                <h1 class="product">Free</h1>
+                <ul class="difference-list">
+                    <li>Unlimited Authentications</li>
+                    <li>Unlimited User creation through SSO</li>
+                    <li>Attribute Mapping</li>
+                    <li class="pricing-list-oauth">
+                        <br/>
+                    </li>
+                    <li class="pricing-list-oauth">
+                        <br/>
+                    </li>
+                    <li class="pricing-list-oauth">
+                        <br/>
+                    </li>
+                    <li class="pricing-list-oauth">
+                        <br/>
+                    </li>
+                    <li class="pricing-list-oauth">
+                        <br/>
+                    </li>
+                    <li class="pricing-list-oauth">
+                        <br/>
+                    </li>
+                    <li class="pricing-list-oauth">
+                        <br/>
+                    </li>
+                    <li>
+                        <p>
+                            <b>Support</b>
+                        </p>
+                        <p>Basic Email Support Plans On Demand</p>
+                        <p class="contactus-margin">
+                            <a href="https://miniorange.atlassian.net/servicedesk/customer/portal/2"
+                               target="_blank" class="contact-us-link">Contact Us
+                            </a>
+                        </p>
+                    </li>
 
-                    </ul>
+                </ul>
 
-                    <div class="redirection-box">
-                        <form method="post" action="./installPlugin" id="installPluginForm">
-                            <button id="GetYourPremiumTrialBtn" class="buy-now-link" type="button">
-                                Get Your Premium Trial
-                            </button>
-                        </form>
-                    </div>
-
+                <div class="redirection-box">
+                    <form method="post" action="./installPlugin" id="installPluginForm">
+                        <button id="GetYourPremiumTrialBtn" class="buy-now-link" type="button">
+                            Get Your Premium Trial
+                        </button>
+                    </form>
                 </div>
 
+            </div>
 
-                <div class="card bl-brdr">
-                    <h1 class="product">Premium</h1>
-                    <ul class="difference-list">
-                        <li>Unlimited Authentications</li>
-                        <li>Unlimited User creation through SSO</li>
-                        <li>Attribute Mapping</li>
-                        <li>Support for Authorization Strategy and Role Authorization Strategy</li>
-                        <li>Login with username or email</li>
-                        <li>Update Profile of Jenkins users at time of SSO</li>
-                        <li>SAML Single Logout</li>
-                        <li>Force Jenkins users to use SSO for login</li>
-                        <li>Binding Type Choice for SAML Requests</li>
-                        <li>Support for Customizations</li>
-                        <li>
-                            <span><b>24*7 Support</b></span>
-                            <p><span>Go to Meeting Support Plans On Demand</span></p>
-                            <p>
-                                <a href="https://miniorange.atlassian.net/servicedesk/customer/portal/2"
-                                   target="_blank" class="contact-us-link">Contact Us
-                                </a>
-                            </p>
-                        </li>
-                    </ul>
-                    <div class="redirection-box">
-                        <a class="buy-now-link"
-                           href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/initializepayment&amp;requestOrigin=jenkins_saml_premium_plan"
-                           target="_blank">Buy Premium Plugin
-                        </a>
-                    </div>
+
+            <div class="card bl-brdr">
+                <h1 class="product">Premium</h1>
+                <ul class="difference-list">
+                    <li>Unlimited Authentications</li>
+                    <li>Unlimited User creation through SSO</li>
+                    <li>Attribute Mapping</li>
+                    <li>Support for Authorization Strategy and Role Authorization Strategy</li>
+                    <li>Login with username or email</li>
+                    <li>Update Profile of Jenkins users at time of SSO</li>
+                    <li>SAML Single Logout</li>
+                    <li>Force Jenkins users to use SSO for login</li>
+                    <li>Binding Type Choice for SAML Requests</li>
+                    <li>Support for Customizations</li>
+                    <li>
+                        <span><b>24*7 Support</b></span>
+                        <p><span>Go to Meeting Support Plans On Demand</span></p>
+                        <p>
+                            <a href="https://miniorange.atlassian.net/servicedesk/customer/portal/2"
+                               target="_blank" class="contact-us-link">Contact Us
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+                <div class="redirection-box">
+                    <a class="buy-now-link"
+                       href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/initializepayment&amp;requestOrigin=jenkins_saml_premium_plan"
+                       target="_blank">Buy Premium Plugin
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="overlay" style="display:none"></div>
+<div id="overlay" style="display:none"></div>
 
     <!-- Confirmation Popup -->
-    <div id="confirmationPopup" >
-        <span class="close-btn">X</span>
-        <h2>Confirm Plugin Installation</h2>
-        <p>The premium trial will work for 30 days. After installation, <strong>Jenkins must be restarted</strong> for the changes to take effect.</p>
-        <br/>
+<div id="confirmationPopup" >
+    <span class="close-btn">X</span>
+    <h2>Confirm Plugin Installation</h2>
+    <p>The premium trial will work for 30 days. After installation, <strong>Jenkins must be restarted</strong> for the changes to take effect.</p>
+    <br/>
 
-        <f:form method="post" action="confirmationFormSubmit" name="confirmationForm">
-            <f:entry  title="Name: " field="name">
-                <f:textbox id="name" name="name" placeholder="What is your name?"/>
-            </f:entry>
-            <f:entry title="Email: " field="email">
-                <f:textbox id="email" name="email"  placeholder="What is your email address?"/>
-            </f:entry>
-            <f:entry title="Organisation Name: " field="orgName">
-                <f:textbox id="orgName" name="orgName" placeholder="What is your organisation name?"/>
-            </f:entry>
-        </f:form>
+<f:form method="post" action="confirmationFormSubmit" name="confirmationForm">
+    <f:entry  title="Name: " field="name">
+        <f:textbox id="name" name="name" placeholder="What is your name?"/>
+    </f:entry>
+    <f:entry title="Email: " field="email">
+        <f:textbox id="email" name="email"  placeholder="What is your email address?"/>
+    </f:entry>
+    <f:entry title="Organisation Name: " field="orgName">
+        <f:textbox id="orgName" name="orgName" placeholder="What is your organisation name?"/>
+    </f:entry>
+</f:form>
 
-        <button id="confirm-button" class="jenkins-button jenkins-button--positive">Confirm and Install</button>
-        <button id="cancel-button" class="jenkins-button jenkins-button--negative">Cancel</button>
-    </div>
+    <button id="confirm-button" class="jenkins-button jenkins-button--positive">Confirm and Install</button>
+    <button id="cancel-button" class="jenkins-button jenkins-button--negative">Cancel</button>
+</div>
 
     <div class="mo-modal jenkins-alert jenkins-alert-info">
         <strong class="mo-modal-heading">Experience Premium Plugin Now!</strong>

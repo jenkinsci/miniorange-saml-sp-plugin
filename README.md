@@ -1,146 +1,132 @@
-# SAML Single Sign On (SSO) for Jenkins
+# Jenkins SAML Single Sign-On (SSO) Plugin
+Secure, Enterprise-Ready Authentication for Jenkins
 
-![image_1](docs/images/jenkins-sso.png)
+![Jenkins SSO Diagram](docs/images/img.png)
 
-⭐  **Click [here](https://miniorange.atlassian.net/wiki/spaces/JEN/pages/2962554886/Jenkins+Saml+SSO+Premium+Trial+Activation) to try out the premium plugin for free** ⭐
+---
 
-**SAML Single Sign On (SSO) for Jenkins** plugin allows SSO with ADFS, Azure AD, Azure AD B2C, Keycloak, Okta,
-Shibboleth, Salesforce, GSuite / Google Apps, AWS, Office 365, SimpleSAMLphp, OpenAM, Centrify, Ping, RSA, IBM, Oracle,
-OneLogin, Bitium, WSO2, Auth0, AuthAnvil and all SAML 2.0 capable Identity Providers to securely authenticate the users
-into Jenkins.
+## 🔐 Multiple IdPs, One Powerful Jenkins Plugin
+The **Jenkins SAML Single Sign-On Plugin** enables secure, seamless, role-based authentication for Jenkins using **SAML 2.0**, supporting all major Identity Providers.
 
-**Features of Jenkins Saml SP Plugin**
+---
 
-* Simple and easy-to-use [ FREE ]
-* Supports both SSO and Jenkins’ own login at the same time [FREE]
-* Auto Create Users[FREE]
-* Encrypted SSO requests and response [FREE]
-* Support to the Proxy Setup [FREE]
-* Export SAML configurations. [FREE]
-* Attribute Mapping [PREMIUM]
-* Auto-redirect to IdP [PREMIUM]
-* Custom Attribute Mapping [PREMIUM]
-* Just In Time Group/Role Provisioning [PREMIUM]
-* Supports all the authorization strategies for role/group mapping [PREMIUM]
-* Manual Group/Role Mapping [PREMIUM]
-* 24*7 support [PREMIUM]
-* Back-door Login [PREMIUM]
-* Single Logout [PREMIUM]
+## ⭐ Why Choose This Plugin?
 
-Facing issue with SSO? Refer below steps to generate error Logs and send it to info@xecurify.com. We will help you
-resolve your issue in no time.
+### 🔁 Sync IdP Groups in Real Time
+Automatically sync groups from your IdP to Jenkins for consistent and simplified user management.
 
-⭐  **Looking to connect Crowd to your Jenkins and manage users and groups from crowd seamlessly? Try our [Crowd Connector Plugin](https://www.miniorange.com/atlassian/jenkins-crowd-sso-connector#free-plugin) today!** ⭐
+### 🚀 Zero-Friction SSO Experience
+Users log in once with their corporate IdP—no extra passwords or hassle.
 
-⭐ **Secure your Jenkins environment with two-factor authentication with our 2FA Plugin. Try our [Jenkins 2FA Pluing](https://miniorange.atlassian.net/wiki/spaces/JEN/pages/2969239626/Jenkins+2FA+Premium+Trial+Activation+Guide) today.** ⭐
+### 🛡️ Enterprise-Grade Security
+Signed & encrypted SAML assertions  
+IdP-side MFA  
+Emergency local login (break-glass access)
 
-### **[Frequently Asked Questions](https://faq.miniorange.com/kb/jenkins/)**
+### ⚙️ Automated User Provisioning
+JIT (Just-in-Time) user creation  
+Attribute-based role mapping  
+Role-based access control (RBAC)
 
-Looking for **Two Factor Authentication(2FA)/OAuth Single Sign On (SSO)** for Jenkins ? Contact us at info@xecurify.com
-for more details.
+### 👥 Native User Creation
+Create & manage native Jenkins users directly via the plugin—no security realm changes required.
 
-Supported IDP’s:
+### 🔄 Import / Export Configurations
+Easily transfer SAML configurations between Jenkins instances to ensure consistent deployments.
 
-If you require Jenkins SAML Single Sign On (SSO) application or need any help with installing this plugin, please feel
-free to email us at info@xecurify.com.
+### 🌐 Atlassian Crowd SSO Support
+Use Crowd as a central directory, reusing existing groups and authentication flows.
 
-LIST OF SUPPORTED IDPS:
+---
 
-* [Azure AD](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-azure-ad-as-idp/) (supports SAML
-  SSO for Jenkins login)
-* [Keycloak](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-jboss-keycloak-as-idp/) (supports
-  SAML SSO for Jenkins login)
-* [ADFS](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-adfs-as-idp/) (supports SAML SSO for
-  Jenkins login)
-* [Okta](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-okta-as-idp) (supports SAML SSO for
-  Jenkins login)
-* [Salesforce](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-salesforce/) (supports SAML SSO
-  for Jenkins login)
-* [Shibboleth 2](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-shibboleth2/) (supports SAML
-  SSO for Jenkins login)
-* [GSuite / Google Apps](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-google-apps-g-suite-as-idp/) (
-  supports SAML SSO for Jenkins login)
-* [miniOrange](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-miniorange-as-idp/) (supports
-  SAML SSO for Jenkins login)
-* [OneLogin](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-onelogin-as-idp/) (supports SAML
-  SSO for Jenkins login)
-* [Centrify](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-centrify-as-idp/) (supports SAML
-  SSO for Jenkins login)
-* [SimpleSAML](https://www.miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-simplesaml) (supports SAML
-  SSO for Jenkins login)
-* [OpenAM](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-openam-as-idp/) (supports SAML SSO
-  for Jenkins login)
-* [PingOne](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-ping-one/) (supports SAML SSO for
-  Jenkins login)
-* [RSA](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-rsa-securid/) (supports SAML SSO for
-  Jenkins login)
-* [Oracle](https://www.miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-oracle-enterprise-manager) (
-  supports SAML SSO for Jenkins login)
-* [Bitium](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-bitium-as-idp/) (supports SAML SSO
-  for Jenkins login)
-* [WSO2](https://www.miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-wso2) (supports SAML SSO for Jenkins
-  login)
-* [Auth0](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-auth0-as-idp/) (supports SAML SSO for
-  Jenkins login)
-* [AuthAnvil](https://miniorange.com/atlassian/saml-single-sign-on-sso-into-jenkins-using-authanvil-as-idp/) (supports SAML
-  SSO for Jenkins login)
+## 🆓 Editions
 
-  and practically any SAML compliant Identity Provider.
+| **Community — Free forever**             | **Premium — 30-day free trial**                     |
+|------------------------------------------|-----------------------------------------------------|
+| **SAML SSO** + local login fallback      | Just-in-Time **group/role provisioning**            |
+| Auto-create users on first login         | Enforce SSO for end users with backdoor URL support |
+| Signed & encrypted SAML requests/responses | **Single Logout (SLO)**                             |
+| Proxy & load-balancer friendly           | Custom login page                                   |
+| Export / import configuration            | **Custom attribute → role mapping**                 |3
+|                                          | **Jenkins Local User Management**                   |
+|                                          | **Crowd Login Support**                             |
+ 
+---
 
-In addition to the above, [miniOrange](/docs/images/miniorange_as_idp.md) also provides On-Premise IDP.
+## ✔️ Supported Identity Providers
+ADFS, Azure AD, Azure AD B2C, Keycloak, Okta, Shibboleth, Salesforce, Google Workspace, AWS, Office 365, SimpleSAMLphp, OpenAM, Centrify, RSA, IBM, Oracle, OneLogin, Bittium, WSO2, Auth0, AuthAnvil — **and all SAML 2.0 capable IdPs**
 
-SAML Single Sign-on (SSO) acts as a SAML 2.0 Service Provider and securely authenticates users with your SAML 2.0
-Identity Provider.
+---
 
-## On Jenkins side:
+## ❓ Frequently Asked Questions (FAQs)
 
-**Step 1: Download and install the plugin in Jenkins.**
+### **Can I create a custom login page for my brand?**
+Yes, Jenkins SAML SSO plugin offers you the option to create a custom login template (with logo, text, button) so that your users recognize your IdP immediately and know they’re at the right place!
 
-To download the miniorange saml SP plugin follow the path:
-**Through Jenkins plugin directory**
+### **Is the plugin compatible with my setup?**
+Jenkins SAML SSO works everywhere.  
+Jenkins versions ≥ 2.319.3 (LTS & weekly), Linux, Windows, Docker, Kubernetes.
 
-* Login to your Jenkins.
-* Go to **Manage Jenkins** option from the left pane, and open **Manage Plugins** tab.
+### **What if I don’t want to enforce SSO for login?**
+That’s alright! Jenkins SAML SSO plugin provides you with the flexibility of using native login or enforcing SSO for your end users.  
+It also includes emergency local login for break-glass access.
 
-![image_1](docs/images/configuration/manage_plugin.png)
+### **Does the Jenkins SAML SSO Plugin support my IdP?**
+The Jenkins SAML SSO plugin supports a wide range of IdPs along with all SAML 2.0 capable Identity Providers to cater to all your needs.
 
-* Search for ‘**Miniorange**’ in the available tab.
-  ![image_2](docs/images/configuration/available-tab-install.png)
-* Download and install with a restart.
+**List of supported IdPs:**  
+ADFS, Azure AD, Azure AD B2C, Keycloak, Okta, Shibboleth, Salesforce, GSuite/Google Apps, AWS, Office 365, SimpleSAMLphp, OpenAM, Centrify, RSA, IBM, Oracle, OneLogin, Bittium, WSO2, Auth0, AuthAnvil, and all SAML 2.0 capable Identity Providers.
+---
 
-![image_3](docs/images/configuration/plugin_installed_2.png)
+## Trusted by Leading Enterprises
 
-Or
-**Manual Configuration:**
+#### <span style="color:#C9A227; font-weight:bold; font-size:15px;">Mastercard</span> uses Atlassian Crowd with our integration to deliver robust authentication for their Jenkins environment. This setup reinforces access security and contributes to a more resilient overall system.
 
-* Login to your Jenkins.
-* Go to **Manage Jenkins** option from the left pane, and open **Manage Plugins** tab.
-* Go to the **advanced** tab and upload the hpi file.
-* You can get the hpi file by running ```mvn clean package``` command on this code. Contact info@xecurify.com if you are
-  facing any issue.
+#### The <span style="color:#C9A227; font-size:15px;">Bank of Ireland (BOI)</span> leverages our Jenkins SAML SSO Plugin to provide fast, seamless, and reliable Single Sign-On (SSO) for their teams, improving both security and user experience
 
-![image_4](docs/images/configuration/upload_plugin.png)
+---
 
-![image_5](docs/images/configuration/plugin_installed_2.png)
+## 📚 Full Setup Guides [here](https://www.miniorange.com/atlassian/jenkins-saml-sso-documentation)
 
-**Step 2: To activate the plugin**
+---
 
-* Open **Manage Jenkins** => **Configure Global Security** and set the **Security Realm** as **miniorange SAML 2.0**.
+## 📞 Contact Us [here](https://miniorange.atlassian.net/servicedesk/customer/portal/2)
 
-![image_6](docs/images/configuration/configure_global_sec.png)
 
-![image_7](docs/images/configuration/set_security_realm.png)
+----
+## ⚡ Quick Start (3 Steps)
 
-* Again go to **Manage Jenkins** => **miniOrange SAML SSO**.
-  ![image_8](docs/images/configuration/configure_SAML_plugin.png)
+### **1. Install via CLI (Jenkins 2.375+)**
 
-**Step:3:** Configure you Idp using SP configuration.
-![image_9](docs/images/configuration/SP_configuration.png)
+### **2. Enable SAML**
+Manage Jenkins → Configure Global Security → Security Realm = miniOrange SAML 2.0
 
-* After configuring your Idp, Set up Jenkins as a service provider by any of the three options:
-* Enter the metadata URL and save the settings.
-  ![image_10](docs/images/configuration/metadataUrl.png)
-* Enter the metadata file path and save the settings.
-  ![image_10](docs/images/configuration/metadataFilePath.png)
-* Manually enter the Idp side values and save the settings.
-  ![image_10](docs/images/configuration/manual_Idp_configuration.png)
+### **3. Add IdP Metadata**
+Paste metadata URL or upload XML → Save → Test Login 🎉
+
+---
+
+## 🧪 Trial & Licensing
+⭐Free **30-day premium trial** — no credit card needed⭐  
+Switch between Premium and Community with zero downtime
+
+---
+
+## 🛠️ Support & Troubleshooting
+
+### Enable SAML Logs
+1. Sign in as admin → **Manage Jenkins**
+2. Scroll to **System Log**
+3. Click **Add new Log Recorder** → name it SAMLlogs
+4. Add logger: org.miniorange.saml → Level: **FINE**
+5. Save
+6. Perform a test login
+7. Return to logs → copy output
+8. Email logs to **support@miniorange.com**
+
+---
+
+## 📞 Need Help?
+We’re here 24×7 for licensed customers.  
+Email: **atlassiansupport@xecurify.com**
+

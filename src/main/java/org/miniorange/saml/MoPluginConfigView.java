@@ -12,7 +12,6 @@ import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.accmod.Restricted;
 import org.kohsuke.accmod.restrictions.NoExternalUse;
@@ -40,7 +39,7 @@ import static jenkins.model.Jenkins.get;
 public class MoPluginConfigView extends ManagementLink {
     private static final Logger LOGGER = Logger.getLogger(MoPluginConfigView.class.getName());
 
-    final String PREMIUM_PLUGIN_URL = "https://miniorange.s3.amazonaws.com/public/plugins/Jenkins/jenkins-saml-sso-premium-3.5.0.hpi";
+    final String PREMIUM_PLUGIN_URL = "https://miniorange.s3.amazonaws.com/public/plugins/Jenkins/jenkins-saml-sso-premium-3.6.0.hpi";
     final String GOOGLE_SHEET_SCRIPT = "https://script.google.com/macros/s/AKfycbyn-Pko2kV_XHTHdSnlhwZMYSMN3pOagmqgCfMnAb5tTrWeA47vOj1NolZSgikChRdW/exec";
 
     @RequirePOST

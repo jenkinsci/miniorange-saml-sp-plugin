@@ -77,6 +77,9 @@
                                                         </f:optionalBlock>
                                                 </table>
                                         </f:block>
+                                        <f:entry title="${%Use Crowd Native Login }" field="useCrowdNativeLogin" >
+                                                <f:checkbox checked="false" class="disable_" />
+                                        </f:entry>
 
                                 </f:section>
                                 <l:isAdmin>
